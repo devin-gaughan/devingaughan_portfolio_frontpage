@@ -395,3 +395,11 @@ img {
 
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
+
+#preloader {
+  background: #191F26 url(img/loading_animation.gif) center no-repeat;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
