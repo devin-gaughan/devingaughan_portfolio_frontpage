@@ -325,7 +325,8 @@ img {
 }
 
 .projlist {
-  list-style-type: upper-roman;
+  /* list-style-type: upper-roman; */
+  display: block;
 }
 
 .projlist li {
@@ -341,10 +342,12 @@ img {
 .sociallist {
   list-style-type: none;
   display: flex;
+  justify-content: space-around;
+  
 }
 
 .sociallist li {
-  margin: 12px;
+  margin: 2em;
 }
 
 .email {
@@ -368,10 +371,10 @@ img {
   opacity: 0.7;
 }
 
-.fa-facebook {
+/* .fa-facebook {
   background: #3b5998;
   color: white;
-}
+} */
 
 .fa-twitter {
   background: #55acee;
@@ -383,18 +386,18 @@ img {
   color: white;
 }
 
-.fa-instagram {
+/* .fa-instagram {
   background: #c03523;
   color: white;
-}
+} */
 
-.fa-snapchat-ghost {
+/* .fa-snapchat-ghost {
   background: #fffc00;
   color: white;
   text-align: center;
 
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
+} */
 
 #preloader {
   background: #191F26 url(img/loading_animation.gif) center no-repeat;
