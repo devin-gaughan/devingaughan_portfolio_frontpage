@@ -168,7 +168,7 @@ nav .container {
   height: 3px;
   background-color: #fff;
   margin: 5px;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .navlinks {
@@ -183,7 +183,7 @@ nav .container {
   padding-left: 2em;
   width: 50%;
   transform: translateX(100%);
-  transition: transform 0.5s ease-in;
+  transition: transform 0.3s ease-in;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .navlinks li {
