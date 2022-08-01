@@ -299,6 +299,7 @@ section .container {
 section img {
   width: 100%;
   display: grid;
+  border-radius: 3px;
 }
 
 section .container > * {
