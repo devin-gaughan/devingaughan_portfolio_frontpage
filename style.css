@@ -7,7 +7,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  --primary-color: #23410fef;
+  --primary-color: rgba(35, 65, 15, 0.937);
+  --secondary-color: rgb(79, 104, 80);
   --primary-border-radius: 3px;
 }
 
@@ -17,7 +18,7 @@ body {
 }
 
 .container {
-  max-width: 90rem;
+  max-width: 90%;
   padding: 2rem;
   margin: 0 0;
 }
@@ -85,14 +86,15 @@ nav {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   padding: 0 0;
   z-index: 40;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent);
+
+  
 }
 
 nav .container {
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -102,9 +104,9 @@ nav .container {
   color: #fff;
   font-size: 1.1rem;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: 2px;
-  background-color: var(--primary-color);
+  background: linear-gradient(to bottom, rgba(166, 166, 166, 30%), transparent);
   padding: .5em;
 /*   padding-left: 20vh;
   padding-right: 22vh; */
@@ -119,7 +121,9 @@ nav .container {
 
 .logo span {
   font-weight: 300;
-  color: #a7a7a7;
+  border-radius: 3px;
+  color: rgb(98, 122, 11);
+/*   background-color: rgba(240, 248, 255, 40%); */
 }
 
 #logo-link {
@@ -135,7 +139,7 @@ nav .container {
 .navlinks {
   display: flex;
   width: 30%;
-  max-width: 15em;
+  max-width: 20em;
   padding-top: 10em;
   list-style-type: none;
   border-style: none;
@@ -153,6 +157,7 @@ nav .container {
   position: relative;
 }
 
+
 .hamburger-menu {
   width: 2.55rem;
   height: 0.5rem;
@@ -169,6 +174,7 @@ nav .container {
   background-color: #fff;
   margin: 5px;
   transition: all 0.1s ease;
+  backdrop-filter: blur(10px);
 }
 
 .navlinks {
@@ -189,6 +195,19 @@ nav .container {
 .navlinks li {
   opacity: 0;
   padding-bottom: 2em;
+}
+
+.navlinks li a {
+  padding: 1em;
+}
+
+.navlinks li a:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+  color: rgb(255, 255, 255);
+  background-color: rgb(79, 104, 80);
+  border-radius: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .burger {
