@@ -162,6 +162,11 @@ nav .container {
   letter-spacing: 3px;
   font-weight: bold;
   font-size: 15x;
+  transition: all .3s ease-in-out;
+}
+
+.bignavlist li:hover {
+  transform: scale(1.1)
 }
 
 .bignavlist a {
@@ -183,8 +188,9 @@ nav .container {
 }
 
 .navlinks a {
+  top: 0;
   color: rgb(202, 202, 202);
-  text-align: center;
+  text-align: left;
   border-style: none;
   text-decoration: none;
   letter-spacing: 3px;
@@ -198,9 +204,7 @@ nav .container {
   width: 2.55rem;
   height: 0.5rem;
   cursor: pointer;
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
 }
 
 .burger div {
@@ -210,7 +214,6 @@ nav .container {
   background-color: #fff;
   margin: 5px;
   transition: all 0.1s ease;
-  backdrop-filter: blur(10px);
 }
 
 .navlinks {
@@ -219,31 +222,35 @@ nav .container {
   height: 110vh;
   top: 0;
   display: flex;
-  background-color: var(--primary-color);
   flex-direction: column;
+  background-color: var(--primary-color);
   align-items: left;
   padding-left: 2em;
   width: 50%;
   transform: translateX(100%);
   transition: transform 0.3s ease-in;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
 }
 .navlinks li {
   opacity: 0;
-  padding-bottom: 2em;
-}
-
-.navlinks li a {
+  min-height: 5vh;
+  max-height: 50vh;
   padding: 1em;
 }
 
-.navlinks li a:hover {
-  transform: scale(1.1);
+.navlinks li a {
+  font-weight: 300;
   transition: all 0.3s ease-in-out;
+}
+
+.navlinks li a:hover {
   color: rgb(255, 255, 255);
-  background-color: rgb(79, 104, 80);
-  border-radius: 40px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transform: scale(1.1);
+/*   background-color: rgb(79, 104, 80); */
+/*   border-radius: 40px; */
+/*   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+
 }
 
 .burger {
