@@ -2,6 +2,7 @@ const translate = document.querySelectorAll(".translate");
 const big_title = document.querySelector(".big-title");
 const header = document.querySelector("header");
 const shadow = document.querySelector(".shadow");
+const shadow_down = document.querySelector(".shadow_down");
 const content = document.querySelector(".content");
 const section = document.querySelector("section");
 const image_container = document.querySelector(".imgContainer");
@@ -29,6 +30,7 @@ window.addEventListener('scroll', () => {
 
     big_title.style.opacity = - scroll / (header_height / 2) + 1;
     shadow.style.height = `${scroll * 0.5 + 300}px`;
+    shadow_down.style.height = `${scroll * 0.1 + 10}px`;
 
     logo.style.opacity = - scroll / (header_height / 1.5) + 1;
     bignavlist.style.opacity = - scroll / (header_height / 1.5) + 1;
