@@ -307,13 +307,88 @@ section .container {
   padding: 0;
   align-items: center;
   justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2fr, 1);
+  width: 100%;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+  list-style-type: none;
+  font-weight: 300;
+}
+
+.projectlist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-style: none;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.projectlist li:hover {
+  transform: scale(1.05);
+  transition: all 0.8s ease-in-out;
+}
+
+.experience {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-style: none;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.experience li:hover {
+  transform: scale(1.05);
+  transition: all 0.8s ease-in-out;
+}
+
+.education {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-style: none;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.education li:hover {
+  transform: scale(1.05);
+  transition: all 0.8s ease-in-out;
 }
 
 section img {
   width: 100%;
-  border-radius: 3px;
+  border-radius: 50%;
   max-height: 25rem;
   max-width: 25rem;
+  margin: 7rem 1rem 1rem 1rem;
 }
 
 section .container > * {
@@ -363,6 +438,9 @@ section .container > * {
   width: 100%;
   overflow: hidden;
   color: #fff;
+  letter-spacing: 2px;
+  font-weight: 300;
+  font-size: 1.2em;
 }
 
 #aboutsec {
@@ -371,6 +449,9 @@ section .container > * {
   width: 100%;
   overflow: hidden;
   color: #fff;
+  letter-spacing: 2px;
+  font-weight: 300;
+  font-size: 1.2em;
 }
 
 #about_img {
@@ -386,6 +467,7 @@ section .container > * {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
 }
 
 .sociallist li {
@@ -634,7 +716,8 @@ section .container > * {
   }
 
   section .container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
     max-width: 95vw;
     padding-right: 10vw;
   }
