@@ -7,6 +7,7 @@ const section = document.querySelector("section");
 const image_container = document.querySelector(".imgContainer");
 const opacity = document.querySelectorAll(".opacity");
 const logo = document.querySelector(".logo");
+const bignavlist = document.querySelector(".bignavlist");
 const border = document.querySelector(".border");
 
 let header_height = header.offsetHeight;
@@ -22,17 +23,18 @@ window.addEventListener('scroll', () => {
         element.style.transform = `translateY(${scroll * speed}px)`;
     });
 
-    opacity.forEach(element => {
+    /*     opacity.forEach(element => {
         element.style.opacity = scroll / (sectionY.top + section_height);
-    })
+        }) */
 
     big_title.style.opacity = - scroll / (header_height / 2) + 1;
     shadow.style.height = `${scroll * 0.5 + 300}px`;
 
-    logo.style.opacity = - scroll / (header_height / .7) + 1;
+    logo.style.opacity = - scroll / (header_height / 1.5) + 1;
+    bignavlist.style.opacity = - scroll / (header_height / 1.5) + 1;
 
-/*     content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 50 - 50}px)`;
- */    image_container.style.transform = `translateY(${scroll / (section_height + sectionY.top) * -50 + 50}px)`;
+    /*  content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 50 - 50}px)`; */    
+    /*  image_container.style.transform = `translateY(${scroll / (section_height + sectionY.top) * -50 + 50}px)`; */
 
     border.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
 });
@@ -45,11 +47,11 @@ const navSlide = () => {
     const nav = document.querySelector('.navlinks');
     const navLinks = document.querySelectorAll('.navlinks li');
 
-    //Toggles Nav
+//Toggles Nav
     burger.addEventListener('click', () => {
         nav.classList.toggle('nav-active');
 
-        //Animates Links
+//Animates Links
         navLinks.forEach((link, index) => {
             if (link.style.animation) {
                 link.style.animation = ''
@@ -58,9 +60,11 @@ const navSlide = () => {
             }
         });
 
-        //Burger Animation
+//Burger Animation
         burger.classList.toggle('toggle');
     });
 }
+
+
 
 navSlide();
