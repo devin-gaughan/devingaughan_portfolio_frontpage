@@ -334,10 +334,54 @@ section .container {
   letter-spacing: 1px;
 }
 
+.projectlist li {
+  margin: 0;
+	padding: 0px 0px 0px 84px;
+	list-style: none;
+	background-repeat: no-repeat;
+	background-position: left 0.5rem center;
+	background-size: 4rem;
+  background-color: rgba(35, 65, 15, 0.5);
+  border-radius: 4px;
+/*   padding: 0.8rem; */
+}
+
+.projectlist li:nth-child(1) {
+  background-image: url("img/code-svgrepo-com.svg");
+}
+
+.projectlist li:nth-child(3) {
+  background-image: url("img/map-svgrepo-com.svg");
+}
+
+.projectlist li:nth-child(5) {
+  background-image: url("img/reel-svgrepo-com.svg");
+}
+
+.projectlist li:nth-child(7) {
+  background-image: url("img/task-svgrepo-com.svg");
+}
+
+.projectlist li:nth-child(9) {
+  background-image: url("img/calculator-svgrepo-com.svg");
+}
+.projectlist li:nth-child(11) {
+  background-image: url("img/games-svgrepo-com.svg");
+}
+.projectlist li:nth-child(13) {
+  background-image: url("img/plan-svgrepo-com.svg");
+}
+
 .projectlist li:hover {
   transform: scale(1.05);
   transition: all 0.8s ease-in-out;
 }
+
+/* @counter-style explogos {
+  system: fixed;
+  symbols: url('img/lam-research-logo.svg') url('img/intel-svgrepo-com.svg') url('img/hp-svgrepo-com.svg') url('img/shin-etsu-chemical.svg') url('') url('xerox-12.svg');
+  suffix: " ";
+} */
 
 .experience {
   display: flex;
@@ -347,13 +391,48 @@ section .container {
   width: 100%;
   padding: 0;
   margin: 0;
-  list-style-type: none;
   border-style: none;
   text-decoration: none;
   font-weight: 300;
   font-size: 1.1rem;
   color: #fff;
   letter-spacing: 1px;
+}
+
+.experience li {
+  margin: 0;
+	padding: 0px 0px 0px 84px;
+	list-style: none;
+	background-repeat: no-repeat;
+	background-position: left 0.5rem center;
+	background-size: 4rem;
+  background-color: rgba(35, 65, 15, 0.5);
+  border-radius: 4px;
+/*   padding: 0.8rem; */
+}
+
+.experience li:nth-child(1) {
+  background-image: url("img/lam-research-logo.svg");
+}
+
+.experience li:nth-child(3) {
+  background-image: url("img/intel-svgrepo-com.svg");
+}
+
+.experience li:nth-child(5) {
+  background-image: url("img/hp-svgrepo-com.svg");
+}
+
+.experience li:nth-child(7) {
+  background-image: url("img/shin-etsu-chemical.svg");
+}
+
+.experience li:nth-child(9) {
+  background-image: url("img/lam-research-logo.svg");
+}
+
+.experience li:nth-child(11) {
+  background-image: url("img/xerox-12.svg");
 }
 
 .experience li:hover {
@@ -376,6 +455,30 @@ section .container {
   font-size: 1.1rem;
   color: #fff;
   letter-spacing: 1px;
+}
+
+.education li {
+  margin: 0;
+	padding: 0px 0px 0px 84px;
+	list-style: none;
+	background-repeat: no-repeat;
+	background-position: left 0.5rem center;
+	background-size: 4rem;
+  background-color: rgba(35, 65, 15, 0.5);
+  border-radius: 4px;
+/*   padding: 0.8rem; */
+}
+
+.education li:nth-child(1) {
+  background-image: url("img/washington-state-university-2.svg");
+}
+
+.education li:nth-child(3) {
+  background-image: url("img/BrightFuture-2Color.jpg");
+}
+
+.education li:nth-child(5) {
+  background-image: url("img/Hudsons-Bay-logo-with-gray.png");
 }
 
 .education li:hover {
