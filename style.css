@@ -365,7 +365,7 @@ section .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -381,6 +381,23 @@ section .container {
 .education li:hover {
   transform: scale(1.05);
   transition: all 0.8s ease-in-out;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-style: none;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 1px;
 }
 
 section img {
@@ -443,17 +460,6 @@ section .container > * {
   background: linear-gradient(to bottom, #131313, transparent);
 }
 
-#contactsec {
-  display: grid;
-  grid-template-columns: repeat(2fr, 1);
-  width: 100%;
-  overflow: hidden;
-  color: #fff;
-  letter-spacing: 2px;
-  font-weight: 300;
-  font-size: 1.2em;
-}
-
 #aboutsec {
   display: grid;
   grid-template-columns: repeat(2fr, 1);
@@ -468,6 +474,17 @@ section .container > * {
 #about_img {
   height: "200px";
   width: "200px";
+}
+
+#contactsec {
+  display: grid;
+  grid-template-columns: repeat(2fr, 1);
+  width: 100%;
+  overflow: hidden;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 300;
+  font-size: 1.2em;
 }
 
 
@@ -731,6 +748,7 @@ section .container > * {
     grid-template-columns: 1fr;
     max-width: 95vw;
     padding-right: 10vw;
+    padding-left: 5vw;
   }
 
   .bignavlist {
