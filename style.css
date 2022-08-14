@@ -292,7 +292,7 @@ nav .container {
   width: 100%;
   text-align: center;
   font-size: 5rem;
-  font-weight: 600;
+  font-weight: 300;
   color: rgb(255, 255, 255);
 }
 
@@ -486,6 +486,52 @@ section .container {
   transition: all 0.8s ease-in-out;
 }
 
+.books {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-style: none;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.books li {
+  margin: 0.4rem;
+	padding: 0px 0px 0px 84px;
+	list-style: none;
+	background-repeat: no-repeat;
+	background-position: left 0.5rem center;
+	background-size: 4rem;
+  background-color: rgba(35, 65, 15, 0.5);
+  border-radius: 4px;
+/*   padding: 0.8rem; */
+}
+
+.books li:nth-child(1) {
+  background-image: url("img/washington-state-university-2.svg");
+}
+
+.books li:nth-child(3) {
+  background-image: url("img/BrightFuture-2Color.jpg");
+}
+
+.books li:nth-child(5) {
+  background-image: url("img/Hudsons-Bay-logo-with-gray.png");
+}
+
+.books li:hover {
+  transform: scale(1.05);
+  transition: all 0.8s ease-in-out;
+}
+
 .contact {
   display: flex;
   flex-direction: column;
@@ -580,6 +626,17 @@ section .container > * {
 }
 
 #contactsec {
+  display: grid;
+  grid-template-columns: repeat(2fr, 1);
+  width: 100%;
+  overflow: hidden;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
+#bookssec {
   display: grid;
   grid-template-columns: repeat(2fr, 1);
   width: 100%;
@@ -730,6 +787,10 @@ section .container > * {
     padding: 0 25rem 0 25rem;
   }
 
+  section .container li {
+    min-height: 6rem;
+  }
+
   nav {
     position: absolute;
   }
@@ -744,6 +805,10 @@ section .container > * {
 
   .navlinks {
     display: none;
+  }
+
+  .text {
+    font-size: 1.4rem;
   }
 }
 
