@@ -325,13 +325,17 @@ nav .container {
 
 section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: #151515;
   position: relative;
+  align-items: center;
+  justify-content: space-around;
 /*   overflow: hidden; */
 }
 
 section .container {
-  width: 90vw;
+  width: 100%;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2fr, 1);
@@ -347,7 +351,7 @@ section img {
 
 section .container > * {
   margin: 2rem;
-  width: 100%;
+  width: 90vw;
 }
 
 .content {
@@ -402,12 +406,12 @@ section .container > * {
   overflow: hidden;
 }
 
-#contactsec {
+/* #contactsec {
   display: grid;
   width: 100%;
   overflow: hidden;
 }
-
+ */
 
 /* Social List Styling */
 
