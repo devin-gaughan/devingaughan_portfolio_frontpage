@@ -7,6 +7,9 @@ const section = document.querySelector("section");
 const image_container = document.querySelector(".imgContainer");
 const opacity = document.querySelectorAll(".opacity");
 const logo = document.querySelector(".logo");
+
+const nav_background = document.querySelector("nav");
+
 const bignavlist = document.querySelector(".bignavlist");
 const border = document.querySelector(".border");
 
@@ -31,10 +34,12 @@ window.addEventListener('scroll', () => {
     shadow.style.height = `${scroll * 0.5 + 300}px`;
 
     logo.style.opacity = - scroll / (header_height / 1.5) + 1;
+
     bignavlist.style.opacity = - scroll / (header_height / 1.5) + 1;
 
     /*  content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 50 - 50}px)`; */    
     /*  image_container.style.transform = `translateY(${scroll / (section_height + sectionY.top) * -50 + 50}px)`; */
+
 
     border.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
 });
@@ -56,7 +61,7 @@ const navSlide = () => {
             if (link.style.animation) {
                 link.style.animation = ''
             } else {
-                link.style.animation = `navLinkFade 0.5s ease forwards ${index / 5 + .50}s`;
+                link.style.animation = `navLinkFade 0.3s ease forwards ${index / 5 + .50}s`;
             }
         });
 
