@@ -467,7 +467,7 @@ object-fit: cover;
   list-style-type: none;
   display: flex;
   flex-direction: row;
-  gap: 6rem;
+  gap: 1rem;
 }
 
 #imgCarousel img {
