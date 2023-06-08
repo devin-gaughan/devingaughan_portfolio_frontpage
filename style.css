@@ -390,6 +390,7 @@ section img {
   margin: 4rem 0 2rem;
   padding: 0;
   position: relative;
+  width: 90vw;
 }
 
 .border {
@@ -411,15 +412,17 @@ section img {
   background: linear-gradient(to top, var(--background-color), transparent);
 }
 
-
-/* stable branch
 #contactsec {
-  display: grid;
-  grid-template-columns: repeat(2fr, 1);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap ;
   width: 100%;
   overflow: hidden;
   color: #fff;
 }
+
+/* stable branch
+
 
 #aboutsec {
   display: grid;
@@ -474,7 +477,7 @@ object-fit: cover;
   min-height: 100%;
   object-fit: cover;
   overflow: hidden;
-  border-radius: 100%;
+  border-radius: 200%/100%;
 }
 
 
