@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap");
 
-/* 
-@import "https://unpkg.com/open-props";
-@import "https://unpkg.com/open-props/normalize.min.css"; 
-*/
-
 
 * {
   /* base page defaults */
@@ -48,7 +43,8 @@ body {
 
 header {
   width: 100vw;
-  height: 12vh;
+  height: 10vh;
+min-height: 12.5vh;
   position: relative;
   overflow: hidden;
 }
@@ -71,7 +67,22 @@ footer {
   color: var(--font-color);
   font-size: 1.2rem;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 200;
+  letter-spacing: 2px;
+  padding: .5em;
+  position: relative;
+  border-radius: var(--primary-border-radius);
+  overflow-x: hidden;
+  top: calc(50% - 2rem);
+  text-shadow: 1px 1px 2px var(--primary-color);
+}
+
+.logo-small {
+  display: none;
+  color: var(--font-color);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 200;
   letter-spacing: 2px;
   padding: .5em;
   position: relative;
@@ -82,9 +93,21 @@ footer {
 }
 
 .logo span {
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: 1.5px;
   border-radius: 3px;
+  font-size: 1.2rem;
+}
+
+#logo-link {
+  text-decoration: none;
+}
+
+.logo-small span {
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  border-radius: 3px;
+  font-size: 1.2rem;
 }
 
 #logo-link {
@@ -104,8 +127,6 @@ nav {
   z-index: 40;
   background: linear-gradient(to bottom, rgba(49, 49, 49, 0.555), transparent);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-  
 }
 
 nav .container {
@@ -113,7 +134,6 @@ nav .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   max-width: 100vw;
   padding: 2rem;
   margin: 0 0;
@@ -135,6 +155,7 @@ nav .container {
   width: 100vw;
   height: 7rem;
   z-index: 50;
+  
 }
 
 .bignavlist li {
@@ -163,7 +184,7 @@ nav .container {
   letter-spacing: 3px;
 }
 
-.bignavlist{
+/* .bignavlist{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -174,6 +195,7 @@ nav .container {
   width: 100vw;
   height: 7rem;
   z-index: 50;
+  
 }
 
 .bignavlist li {
@@ -199,7 +221,7 @@ nav .container {
   font-size: 1.2rem;
   font-weight: 300;
   letter-spacing: 3px;
-}
+} */
 
 
 /* HAMBURGER NAVIGATION */
@@ -410,6 +432,22 @@ section img {
 
 
 */
+
+.banner {
+
+width: 100vw;
+overflow: hidden;
+height: 30vh;
+align-items: center;
+justify-content: center;
+object-fit: cover;
+}
+
+.banner img {
+  min-height: 100%;
+  object-fit: cover;
+}
+
 #about_img {
   object-fit: cover;
   float: right;
@@ -417,6 +455,29 @@ section img {
   border-radius: 100%;
   margin: 2rem;
 }
+
+#imgCarouselContainer {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+#imgCarousel {
+  text-decoration: none;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 6rem;
+}
+
+#imgCarousel img {
+  min-height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+
 
 .opacity {
   opacity: 0;
@@ -468,9 +529,11 @@ a.email:hover {
 }
 
 
+
+
 /* Preloader Image */
 #preloader {
-  background: #191F26 url(img/loading_animation.gif) center no-repeat;
+  background: #191F26 url(img/UI/loading_animation.gif) center no-repeat;
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -573,6 +636,10 @@ a.email:hover {
   .navlinks {
     display: block;
   }
+
+  nav .container {
+    height: 12.8vh;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -630,6 +697,16 @@ a.email:hover {
     margin: 1rem 0 0 1rem;
   } */
   
+}
+
+@media (max-width: 660px) {
+  nav h3 {
+    display: none;
+  }
+  .logo-small {
+    display: block;
+  }
+
 }
 
 @media (max-width: 480px) {

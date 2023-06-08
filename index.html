@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- Head -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,17 +12,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
+<!-- Body start -->
 <body>
-  <!-- Preloader  -->
+<!-- Preloader  -->
   <div id="preloader"></div>
 
+<!-- Header start -->
   <header>
 
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav>
       <div class="container">
         <a href="#" id="logo-link">
-          <h3 class="logo" data-speed="0.1">Devin<span> Gaughan</span>  <br>&#10037 <!-- &#10092  --><span>Test Automation</span> Engineer <!-- &#10093 --></h3>
+          <h3 class="logo" data-speed="0.1">Devin<span> Gaughan</span>  &#10037 <!-- &#10092  --><span>Test Automation</span> Engineer <!-- &#10093 --></h3>
+          <h4 class="logo-small" data-speed="0.1">Devin<span> Gaughan</span></h4>
         </a>
         <div class="bar">
           <div class="hamburger-menu">
@@ -47,8 +51,10 @@
       </div>
     </nav>
   </header>
-
-<!-- Section 1 -->
+  <div class="banner">
+    <img src="img\UI\banner.jpg" alt="">
+  </div>
+<!-- Section 1 - About me-->
   <section>
     <div class="shadow"></div>
     <div class="container" id="aboutsec">
@@ -78,60 +84,67 @@
 
   </section>
 
-<!-- Section 2 -->
-  <section>
-      <div class="container" id="contactsec">
-        <div class="column">
-          <h3 class="title">
-            Contact
-            <br>
-            <div class="border"></div>
-          </h3>
-          <div class="column">
-            <img src="img\UI\devin1-about.jpg" alt="Profile picture" id="about_img" class="imgContainer">
-          </div>
-          <p class="text">
-          <h3>Hello  &#10037 
-            こんにちは  &#10037 
-            สวัสดีครับ</h3><br /><p>You can contact me via email or find me on social media. See my GitHub for more about projects I'm working on</p>
-          <ul class="sociallist">
-            <li><a href="mailto:devin@devingaughan.com" target="_blank" class="fa fa-sharp fa-solid fa-envelope" style="color: #ffffff;"></a></li>
-            <li><a href="https://twitter.com/DevinGaughan" target="_blank" class="fa fa-brands fa-twitter" style="color: #fff";></a></li>
-            <li><a href="https://github.com/devin-gaughan" target="_blank" class="fa fa-brands fa-github" style="color: #fff";></a></li>
-          </ul>
-
-      </div>
-
-  </section>
-
-  <!-- Section 3 -->
+<!-- Section 2 - Photo gallery -->
   <section>
     <div class="container">
         <h3 class="title">
           Explore the world.
         </h3>
-        <img src="" alt="">
+        <!-- Carousel 1 -->
+        <div>
+          <ul id="imgCarousel">
+            <li><img src="img\Carousel\plane1.webp" alt=""></a></li>
+            <li><img src="img\Carousel\plane3.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\plane4.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\plane5.jpg" alt=""></a></li>
+
+          </ul>
+        </div>
         <br>
         <h3 class="title">
           Meet new people.
         </h3>
-
+        <!-- Carousel 2 -->
+        <div>
+          <ul id="imgCarousel">
+            <li><img src="img\Carousel\city1.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\city2.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\city3.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\city4.jpg" alt=""></a></li>
+          </ul>
+        </div>
         <br>
         <h3 class="title">
           Embrace differences.
         </h3>
-
+        <!-- Carousel 3 -->
+        <div id="imgCarousel">
+          <ul id="imgCarousel">
+            <li><img src="img\Carousel\culture0.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\culture1.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\culture2.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\culture4.jpg" alt=""></a></li>
+          </ul>
+        </div>
         <br>
         <h3 class="title">
           Learn new things.
         </h3>
-
+        <!-- Carousel 4 -->
+        <div id="imgCarousel">
+          <ul id="imgCarousel">
+            <li><img src="img\Carousel\flower1.webp" alt=""></a></li>
+            <li><img src="img\Carousel\flower9.jpg" alt=""></a></li>
+            <li><img src="img\Carousel\flower5.webp" alt=""></a></li>
+            <li><img src="img\Carousel\flower4.jpg" alt=""></a></li>
+          </ul>
+        </div>
         <br>
         <div class="border"></div>
     </div>
   </section>
 
-  <!-- Section 4 -->
+<!-- Section 3 - Experience -->
   <section>
     <div class="container">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus nulla semper feugiat commodo. Pellentesque ut nulla ut nisl vulputate elementum non at justo. Ut dapibus consequat turpis. Proin in risus efficitur, luctus tortor a, accumsan leo. In finibus ipsum eget cursus dictum. Ut commodo pulvinar orci, sed finibus elit tristique vel. Morbi at cursus dolor. Morbi volutpat placerat est, eu vestibulum arcu viverra quis. Phasellus at mattis sapien. Cras commodo, magna euismod luctus porttitor, purus nisi aliquet mi, sit amet molestie elit enim in massa. Morbi non lacus eget justo accumsan semper. Integer eu tellus nisi. Morbi vitae augue a purus condimentum bibendum at quis erat. Quisque iaculis gravida faucibus. Fusce faucibus suscipit porta. Sed a lorem eget urna congue cursus.
@@ -156,9 +169,37 @@
 
     </div>
   </section>
+
+<!-- Section 4 - Contact me -->
+    <section>
+      <div class="container" id="contactsec">
+
+          <h3 class="title">
+            Contact
+            <br>
+            <div class="border"></div>
+          </h3>
+
+            <img src="img\UI\devin1-about.jpg" alt="Profile picture" id="about_img" class="imgContainer">
+
+          <p class="text">
+          <h3>Hello  &#10037 
+            こんにちは  &#10037 
+            สวัสดีครับ</h3><br /><p>You can contact me via email or find me on social media. See my GitHub for more about projects I'm working on</p>
+          <ul class="sociallist">
+            <li><a href="mailto:devin@devingaughan.com" target="_blank" class="fa fa-sharp fa-solid fa-envelope" style="color: #ffffff;"></a></li>
+            <li><a href="https://twitter.com/DevinGaughan" target="_blank" class="fa fa-brands fa-twitter" style="color: #fff";></a></li>
+            <li><a href="https://github.com/devin-gaughan" target="_blank" class="fa fa-brands fa-github" style="color: #fff";></a></li>
+          </ul>
+          </p>
+        </div>
+
+    </section>
+
+<!-- Footer start-->
 <footer>
   <div class="container" id="footer">
-    <p>&copy; Devin Gaughan 1987-<script>document.write(new Date().getFullYear())</script></p>
+    <p>&copy; Devin Gaughan 2011-<script>document.write(new Date().getFullYear())</script></p>
   </div>
 </footer>
 
