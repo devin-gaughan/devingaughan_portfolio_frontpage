@@ -38,7 +38,6 @@ body {
   position: relative;
   align-items: center;
   justify-content: center;
-
 }
 
 header {
@@ -477,7 +476,9 @@ object-fit: cover;
   min-height: 100%;
   object-fit: cover;
   overflow: hidden;
-  border-radius: 200%/100%;
+  width: 18vw;
+  height: 18vw;
+  border-radius: 50%;
 }
 
 
@@ -645,7 +646,12 @@ a.email:hover {
   }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 1200px) {
+  #imgCarousel li {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+  }
   /* section .container {
     display:grid;
     grid-template-columns: 1fr;
@@ -674,8 +680,10 @@ a.email:hover {
   } */
 }
 
-@media (max-width: 768px) {
-  /* section .container {
+@media screen and (min-width: 768px) {
+
+
+/*   section .container {
     display: grid;
     grid-template-columns: 1fr;
     padding-right: 10vw;
