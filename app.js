@@ -1,70 +1,54 @@
-const translate = document.querySelectorAll(".translate");
-const big_title = document.querySelector(".big-title");
+
+/*
+// Theme toggle button
+const toggleButton = document.getElementById('theme-toggle');
+const themeLink = document.getElementById('theme-link');
+
+// Store theme preference in localStorage
+const storedTheme = localStorage.getItem('theme');
+if (storedTheme) {
+    themeLink.href = storedTheme;
+}
+
+toggleButton.addEventListener('click', function () {
+    if (themeLink.href.includes('style.css')) {
+        themeLink.href = 'dark-mode.css';
+        localStorage.setItem('theme', 'dark-mode.css');
+        toggleButton.textContent = 'Toggle Light Mode';
+    } else {
+        themeLink.href = 'style.css';
+        localStorage.setItem('theme', 'style.css');
+        toggleButton.textContent = 'Toggle Dark Mode';
+    }
+}); */
+
+// Select elements
 const header = document.querySelector("header");
-const shadow = document.querySelector(".shadow");
-const content = document.querySelector(".content");
-const section = document.querySelector("section");
-const image_container = document.querySelector(".imgContainer");
-const opacity = document.querySelectorAll(".opacity");
-const logo = document.querySelector(".logo");
-const nav_background = document.querySelector("nav");
-const bignavlist = document.querySelector(".bignavlist");
-const border = document.querySelector(".border");
+const navBackground = document.querySelector("nav");
+const navLinks = document.querySelectorAll(".navlinks li");
 
-let header_height = header.offsetHeight;
-let section_height = section.offsetHeight;
-
-//Paralax Effect
-window.addEventListener('scroll', () => {
-    let scroll = window.pageYOffset;
-    let sectionY = section.getBoundingClientRect();
-
-    translate.forEach(element => {
-        let speed = element.dataset.speed;
-        element.style.transform = `translateY(${scroll * speed}px)`;
-    });
-
-    opacity.forEach(element => {
-        element.style.opacity = scroll / (sectionY.top + section_height);
-    })
-
-    big_title.style.opacity = - scroll / (header_height / 2) + 1;
-    shadow.style.height = `${scroll * 0.5 + 300}px`;
-
-    logo.style.opacity = - scroll / (header_height / 1.5) + 1;
-    nav_background.style.opacity = - scroll / (header_height / 1.5) + 1;
-    bignavlist.style.opacity = - scroll / (header_height / 1.5) + 1;
-
-/*  content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 50 - 50}px)`; */    
-    image_container.style.transform = `translateY(${scroll / (section_height + sectionY.top) * -50 + 50}px)`;
-
-    border.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
-});
-
-
-
-//Navigation Hamburger Menu
+// Navigation Hamburger Menu
 const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.navlinks');
-    const navLinks = document.querySelectorAll('.navlinks li');
 
-    //Toggles Nav
+    // Toggle Navigation Menu
     burger.addEventListener('click', () => {
         nav.classList.toggle('nav-active');
 
-        //Animates Links
+        // Animate Links
         navLinks.forEach((link, index) => {
             if (link.style.animation) {
-                link.style.animation = ''
+                link.style.animation = '';
             } else {
-                link.style.animation = `navLinkFade 0.3s ease forwards ${index / 5 + .50}s`;
+                link.style.animation = `navLinkFade 0.3s ease forwards ${index / 7 + 0.3}s`;
             }
         });
 
-        //Burger Animation
+        // Burger Animation
         burger.classList.toggle('toggle');
     });
-}
+};
 
+// Initialize navigation slide
 navSlide();
