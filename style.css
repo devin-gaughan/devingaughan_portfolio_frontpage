@@ -109,7 +109,7 @@ header {
 .logo::after {
   content: '';
   display: block;
-  width: 50%;
+  width: 100%;
   height: 3px;
   background-color: #007BFF;
   margin: 5px auto 0;
@@ -117,7 +117,7 @@ header {
 }
 
 .logo:hover::after {
-  width: 80%;                      /* Expanding underline on hover */
+  width: 300%;                      /* Expanding underline on hover */
 }
 
 .navbar {
@@ -139,15 +139,15 @@ header {
 
 .navlinks {
   list-style: none;
-  display: flex;
+  /* display: flex;
   justify-content: flex-end;
-  margin: 0;
+  margin: 0; */
   
 }
 
-.navlinks li {
+/* .navlinks li {
   margin-left: 20px;
-}
+}*/
 
 .navlinks a {
   color: #fff;
@@ -328,23 +328,32 @@ footer p {
 
   .burger {
       display: flex;
+      z-index: 1;
   }
 
   .navlinks {
+    visibility: hidden;
       position: absolute;
       right: 0;
-      height: 100vh;
-      top: 0;
+      height: 50vh;
+      top: -10px;
       background-color: #434343;
       flex-direction: column;
       align-items: center;
-      width: 100%;
+      width: 70%;
       transform: translateX(100%);
       transition: transform 0.5s ease-in;
+      border-radius: 5px 0 0 5px;
+      overflow: hidden;
   }
 
   .navlinks li {
       opacity: 1;
       margin: 20px 0;
+  }
+
+  .nav-active {
+    transform: translateX(0%);
+    visibility: visible;
   }
 }

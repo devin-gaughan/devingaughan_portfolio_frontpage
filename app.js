@@ -1,12 +1,8 @@
 // Select elements
-const header = document.querySelector("header");
-const navBackground = document.querySelector("nav");
-const navLinks = document.querySelectorAll(".navlinks li");
-
-// Navigation Hamburger Menu
 const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.navlinks');
+    const navLinks = document.querySelectorAll('.navlinks li');
 
     // Toggle Navigation Menu
     burger.addEventListener('click', () => {
@@ -28,3 +24,4 @@ const navSlide = () => {
 
 // Initialize navigation slide
 navSlide();
+
