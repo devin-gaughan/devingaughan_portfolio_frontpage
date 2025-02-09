@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 /* 
 @import "https://unpkg.com/open-props";
@@ -809,6 +810,258 @@ section .container > * {
 
   .text {
     font-size: 1.4rem;
+=======
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  font-family: 'Poppins', sans-serif;
+  color: #E0E0E0;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+
+/* style.css */
+#background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+
+/* Header */
+header {
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+header:hover {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #00BFFF;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  display: inline-block;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #008FCC;
+  transform: translateY(-3px);
+  text-decoration: none;
+  
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  max-width: 1000px;
+  gap: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  color: #E0E0E0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: auto;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #E0E0E0;
+  padding: 10px;
+  transition: color 0.3s ease, background 0.3s ease;
+  border-radius: 5px;
+  
+}
+
+.nav-links a:hover {
+  color: #00BFFF;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  text-align: center;
+  color: white;
+  position: relative;
+  z-index: 10;
+
+}
+
+.hero-content {
+  background: rgba(30, 30, 30, 0.6);
+  padding: 40px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+
+}
+
+.hero-content:hover {
+  transform: scale(1.05);
+}
+
+.btn {
+  background: #00BFFF;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background: #008FCC;
+  transform: translateY(-3px);
+  text-decoration: none;
+
+}
+
+/* Sections */
+.section {
+  padding: 80px 20px;
+  text-align: center;
+  background: rgba(15, 15, 15, 0.85);
+  margin: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 10;
+  
+}
+
+/* Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+
+}
+
+.project-item {
+  background: rgba(40, 40, 40, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, background 0.3s ease;
+
+}
+
+.project-item:hover {
+  transform: translateY(-10px);
+  background: rgba(60, 60, 60, 0.9);
+  
+}
+
+.contact {
+  display: inline;
+  text-decoration: none;
+}
+
+/* Footer */
+footer {
+  background: rgba(10, 10, 10, 0.9);
+  text-align: center;
+  padding: 20px;
+  color: #A0A0A0;
+  backdrop-filter: blur(5px);
+  margin-top: auto;
+  z-index: 10;
+  position: relative;
+}
+
+/* Social Links */
+.social-links {
+  list-style: none;
+}
+
+.social-links a {
+  color: #00BFFF;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #008FCC;
+  transform: translateY(-3px);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1050px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-content {
+    padding: 20px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+>>>>>>> Stashed changes
   }
 }
 
