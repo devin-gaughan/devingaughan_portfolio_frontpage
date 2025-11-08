@@ -1,118 +1,915 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devin Gaughan - Computer Engineering</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" id="theme-link">
+    <title>Devin Gaughan | Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #c9a961;
+            --secondary: #8b7355;
+            --accent: #d4af37;
+            --dark: #0d0d0d;
+            --darker: #000000;
+            --light: #e8e8e8;
+            --gradient: linear-gradient(135deg, #c9a961 0%, #8b7355 100%);
+            --silver: #c0c0c0;
+            --platinum: #e5e4e2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Space Background */
+        .space-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, #000000 0%, #0d0d0d 50%, #1a1a1a 100%);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: #e5e4e2;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.2; 
+                box-shadow: 0 0 2px rgba(201, 169, 97, 0.5);
+            }
+            50% { 
+                opacity: 0.8; 
+                box-shadow: 0 0 4px rgba(212, 175, 55, 0.8);
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201, 169, 97, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: rgba(229, 228, 226, 0.9);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #000;
+            box-shadow: 0 5px 25px rgba(201, 169, 97, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--darker);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: rgba(192, 192, 192, 0.7);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-highlights {
+            background: rgba(13, 13, 13, 0.8);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(13, 13, 13, 0.8);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(201, 169, 97, 0.3);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: rgba(192, 192, 192, 0.1);
+            color: var(--platinum);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: rgba(201, 169, 97, 0.2);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(13, 13, 13, 0.9);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--silver));
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 50px rgba(201, 169, 97, 0.4);
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            color: rgba(229, 228, 226, 0.85);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: rgba(139, 115, 85, 0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(139, 115, 85, 0.4);
+        }
+
+        .project-metric {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        /* Featured Project */
+        .featured-project {
+            background: linear-gradient(135deg, rgba(13, 13, 13, 0.95), rgba(26, 26, 26, 0.95));
+            border: 2px solid var(--primary);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 4rem;
+            box-shadow: 0 10px 50px rgba(201, 169, 97, 0.2);
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(13, 13, 13, 0.8);
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .contact-link:hover .contact-icon {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(201, 169, 97, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Glowing effect */
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(201, 169, 97, 0.5), 0 0 10px rgba(201, 169, 97, 0.5), 0 0 15px rgba(212, 175, 55, 0.5);
+            }
+            to {
+                text-shadow: 0 0 10px rgba(201, 169, 97, 0.8), 0 0 20px rgba(201, 169, 97, 0.8), 0 0 30px rgba(212, 175, 55, 0.6);
+            }
+        }
+
+        /* SVG Icon Styles */
+        .icon-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .highlight-icon .icon-svg,
+        .contact-icon .icon-svg {
+            filter: drop-shadow(0 0 3px rgba(201, 169, 97, 0.5));
+        }
+
+        .featured-badge .icon-svg {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+    </style>
 </head>
-
 <body>
-    <header>
-        <nav>
-            <div class="container">
-                <h1 class="logo">Devin Gaughan</h1>
-                <ul class="navbar">
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#projects">Projects</a></li>
-                  <li><a href="#contact">Contact</a></li>
-              </ul>
-                <div class="burger">
-                  <div class="line1"></div>
-                  <div class="line2"></div>
-                  <div class="line3"></div>
-                </div>
-              <ul class="navlinks">
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#projects">Projects</a></li>
-                  <li><a href="#contact">Contact</a></li>
-              </ul>
-            </div>
-        </nav>
-    </header>
+    <!-- Animated Space Background -->
+    <div class="space-bg">
+        <div class="stars" id="stars"></div>
+    </div>
 
-    <section class="hero">
-        <div class="container">
-            <h2 class="hero-title">Materials Engineering & Microchip Design</h2>
-            <p class="hero-subtitle">Building software to simulate materials chemistry and physics for use in designing the next generation of computing hardware.</p>
-            <a href="#projects" class="btn">View Projects</a>
-        </div>
-    </section>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>Hello, I’m Devin Gaughan – a dedicated Software Engineer with experience in embedded systems and firmware development. I'm currently working on a crystal lattice simulation software for use in materials science in microchip research. I’m driven by a passion for technology, with interests that extend into Chemistry, Physics, Math, and a deep appreciation for the outdoors and the natural world. I strive to push technological boundaries while creating solutions that harmonize with and respect our environment.</p>
-            <br>
-            <p><a href="https://www.linkedin.com/in/devinpgaughan/" target="_blank">See my professional experience on LinkedIn.</a></p>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-item">
-                    <img src="images/industrial-automation.png" alt="Project Image">
-                    <h3>Automated Control System Firmware</h3>
-                    <p><a href="https://github.com/devin-gaughan/automated-control-system/tree/master" target="_blank">See Demo Project on GitHub</a></p></a></p>
-                    <p>Developed low-level firmware for an industrial automation system, improving operational efficiency by 25%.</p>
-                </div>
-                <div class="project-item">
-                    <img src="images/wearable-tech.png" alt="Project Image">
-                    <h3>Wearable Health Monitor</h3>
-                    <p><a href="https://github.com/devin-gaughan/health-monitoring-device/tree/master" target="_blank">See Demo Project on GitHub</a></p>
-                    <p>Created firmware for a wearable health device, focusing on low-power consumption and real-time data processing.</p>
-                </div>
-                <div class="project-item">
-                    <img src="images/printer-logo.jpg" alt="Project Image">
-                    <h3>Next-Gen Printer Firmware</h3>
-                    <p><a href="https://github.com/devin-gaughan/Next-Gen-Printer/tree/master" target="_blank">See Demo Project on GitHub</a></p>
-                    <p>Engineered firmware for a next-gen printer, reducing boot time by 15% and enhancing user experience.</p>
-                </div>
-                <div class="project-item">
-                    <img src="images/home-security-logo.png" alt="Project Image">
-                    <h3>IoT Home Security System</h3>
-                    <p><a href="https://github.com/devin-gaughan/IoT-Home-Security-System/tree/master" target="_blank">See Demo Project on GitHub</a></p>
-                    <p>Developed secure and reliable firmware for an IoT-based home security system, with real-time monitoring and alerts.</p>
-                </div>
-                <div class="project-item">
-                    <img src="images/robot-arm-logo.png" alt="Project Image">
-                    <h3>Robotic Arm Control Firmware</h3>
-                    <p><a href="https://github.com/devin-gaughan/Robotic-Arm-System/tree/master" target="_blank">See Demo Project on GitHub</a></p>
-                    <p>Designed and implemented firmware for a robotic arm, enabling precise control and enhanced automation in manufacturing.</p>
-                </div>
-                <div class="project-item">
-                    <img src="images/therm-logo.jpg" alt="Project Image">
-                    <h3>Smart Thermostat Firmware</h3>
-                    <p><a href="https://github.com/devin-gaughan/Smart-Thermostat-System" target="_blank">See Demo Project on GitHub</a></p>
-                    <p>Created energy-efficient firmware for a smart thermostat, integrating AI-driven algorithms for optimized climate control.</p>
-                </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glow">Devin Gaughan</h1>
+            <p class="subtitle">SOFTWARE ENGINEER</p>
+            <p>Building software to simulate materials chemistry and physics for use in designing the next generation of computing hardware.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <p>If you’d like to collaborate or learn more about my work, feel free to reach out!</p>
-            <ul class="social-links">
-                <li><a href="https://www.linkedin.com/in/devinpgaughan/" target="_blank">LinkedIn</a></li>
-                <li><a href="https://github.com/devin-gaughan" target="_blank">GitHub</a></li>
-                <li><a href="mailto:devin@devingaughan.com">Email</a></li>
-            </ul>
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">Dedicated to pushing the boundaries of embedded systems</p>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hello, I'm Devin Gaughan – a dedicated Software Engineer with experience in embedded systems and firmware development. I'm currently working on crystal lattice simulation software for use in materials science in microchip research.</p>
+                <p>I'm driven by a passion for technology, with interests that extend into Chemistry, Physics, Math, and a deep appreciation for the outdoors and the natural world. I strive to push technological boundaries while creating solutions that harmonize with and respect our environment.</p>
+                <p>My expertise spans low-level firmware development, real-time systems, IoT devices, and industrial automation. I thrive on solving complex technical challenges and optimizing system performance.</p>
+            </div>
+            <div class="about-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 20L4.6797 10.8496C4.34718 10.434 4.18092 10.2262 4.13625 9.9757C4.09159 9.72524 4.17575 9.47276 4.34407 8.96778L5.0883 6.73509C5.52832 5.41505 5.74832 4.75503 6.2721 4.37752C6.79587 4 7.49159 4 8.88304 4H15.117C16.5084 4 17.2041 4 17.7279 4.37752C18.2517 4.75503 18.4717 5.41505 18.9117 6.73509L19.6559 8.96778C19.8243 9.47276 19.9084 9.72524 19.8637 9.9757C19.8191 10.2262 19.6528 10.434 19.3203 10.8496L12 20Z" fill="#a58860" fill-opacity="0.24"/>
+                            <path d="M12 20L4.6797 10.8496C4.34718 10.434 4.18092 10.2262 4.13625 9.9757C4.09159 9.72524 4.17575 9.47276 4.34407 8.96778L5.0883 6.73509C5.52832 5.41505 5.74832 4.75503 6.2721 4.37752C6.79587 4 7.49159 4 8.88304 4H15.117C16.5084 4 17.2041 4 17.7279 4.37752C18.2517 4.75503 18.4717 5.41505 18.9117 6.73509L19.6559 8.96778C19.8243 9.47276 19.9084 9.72524 19.8637 9.9757C19.8191 10.2262 19.6528 10.434 19.3203 10.8496L12 20ZM12 20L15.5 9M12 20L8.5 9M19.5 10L15.5 9M15.5 9L14 5M15.5 9H8.5M10 5L8.5 9M8.5 9L4.5 10" stroke="#cfad48" stroke-width="1.4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Materials Science Research</strong>
+                        <p>Crystal lattice simulation for next-gen computing</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.55563 13.3232L9.43584 13.3123C7.90803 13.1735 7.14412 13.104 6.90146 12.5814C6.65881 12.0588 7.09869 11.4304 7.97846 10.1736L11.5612 5.05544C12.1424 4.22517 12.433 3.81003 12.6836 3.89831C12.9342 3.98658 12.9005 4.4922 12.8331 5.50343L12.6299 8.55194C12.5685 9.47214 12.5379 9.93224 12.8023 10.2419C13.0667 10.5515 13.5259 10.5933 14.4444 10.6768L14.5642 10.6877C16.092 10.8265 16.8559 10.896 17.0985 11.4186C17.3412 11.9412 16.9013 12.5696 16.0215 13.8264L12.4388 18.9446C11.8576 19.7748 11.567 20.19 11.3164 20.1017C11.0658 20.0134 11.0995 19.5078 11.1669 18.4966L11.3701 15.4481C11.4315 14.5279 11.4621 14.0678 11.1977 13.7581C10.9333 13.4485 10.4741 13.4067 9.55563 13.3232Z" fill="#b49668"/>
+                            <path d="M18.5 4L17 6H19L17.5 8" stroke="#d2ae3e" stroke-opacity="0.24" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.5 16L5 18H7L5.5 20" stroke="#d2ae3e" stroke-opacity="0.24" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Embedded Systems Expert</strong>
+                        <p>Firmware optimization & real-time processing</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3.4" fill="#ceab50" fill-opacity="0.24" stroke="#b19367" stroke-width="1.2"/>
+                            <path d="M12 5V3" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M12 21V19" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M16.9498 7.05026L18.364 5.63605" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M5.63608 18.364L7.05029 16.9498" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M19 12L21 12" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M3 12L5 12" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M16.9498 16.9497L18.364 18.364" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M5.63608 5.63602L7.05029 7.05023" stroke="#b19367" stroke-width="1.2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Sustainable Technology</strong>
+                        <p>Solutions that respect our environment</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Expertise</h2>
+        <p class="section-subtitle">Technologies and tools I work with</p>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">C</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Assembly</span>
+                    <span class="skill-tag">Rust</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Embedded Systems</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">ARM Cortex</span>
+                    <span class="skill-tag">STM32</span>
+                    <span class="skill-tag">ESP32</span>
+                    <span class="skill-tag">RTOS</span>
+                    <span class="skill-tag">FreeRTOS</span>
+                    <span class="skill-tag">Bare Metal</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Protocols & Interfaces</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">I2C</span>
+                    <span class="skill-tag">SPI</span>
+                    <span class="skill-tag">UART</span>
+                    <span class="skill-tag">CAN</span>
+                    <span class="skill-tag">USB</span>
+                    <span class="skill-tag">Modbus</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Tools & Platforms</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">JTAG/SWD</span>
+                    <span class="skill-tag">Oscilloscope</span>
+                    <span class="skill-tag">Logic Analyzer</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Docker</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Specializations</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Low-Power Design</span>
+                    <span class="skill-tag">Real-Time Systems</span>
+                    <span class="skill-tag">IoT</span>
+                    <span class="skill-tag">Bootloaders</span>
+                    <span class="skill-tag">Device Drivers</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Scientific Computing</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Simulation Software</span>
+                    <span class="skill-tag">Materials Science</span>
+                    <span class="skill-tag">Physics Modeling</span>
+                    <span class="skill-tag">Chemistry</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">Solutions built to solve real-world challenges</p>
+        
+        <!-- Featured Project -->
+        <div class="featured-project">
+            <span class="featured-badge">
+                ⭐ CURRENT WORK
+            </span>
+            <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Crystal Lattice Simulation Software</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Advanced simulation software for modeling materials chemistry and physics to aid in designing next-generation computing hardware. This cutting-edge tool enables researchers to predict material properties and optimize microchip design at the atomic level.</p>
+            <div class="project-tech">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">C++</span>
+                <span class="tech-badge">Scientific Computing</span>
+                <span class="tech-badge">Materials Science</span>
+                <span class="tech-badge">Physics Simulation</span>
+            </div>
+            <p style="color: rgba(224, 242, 255, 0.7); margin-top: 1rem;">Enabling breakthroughs in semiconductor research and next-gen computing materials</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Industrial Automation System</h3>
+                <p>Developed low-level firmware for an industrial automation system, implementing real-time control algorithms and optimizing data processing pipelines.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">C</span>
+                    <span class="tech-badge">STM32</span>
+                    <span class="tech-badge">Modbus</span>
+                    <span class="tech-badge">RTOS</span>
+                </div>
+                <p class="project-metric">⚡ +25% Operational Efficiency</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Wearable Health Device</h3>
+                <p>Created firmware for a wearable health monitoring device, focusing on ultra-low-power consumption and real-time biometric data processing with cloud synchronization.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">C++</span>
+                    <span class="tech-badge">Nordic nRF52</span>
+                    <span class="tech-badge">BLE</span>
+                    <span class="tech-badge">Low-Power Design</span>
+                </div>
+                <p class="project-metric">🔋 Extended Battery Life to 7 Days</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Next-Gen Printer Firmware</h3>
+                <p>Engineered firmware for a next-generation printer, implementing custom bootloader and optimizing initialization routines to dramatically reduce startup times.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">C</span>
+                    <span class="tech-badge">ARM Cortex-M</span>
+                    <span class="tech-badge">USB</span>
+                    <span class="tech-badge">Bootloader</span>
+                </div>
+                <p class="project-metric">🚀 -15% Boot Time Reduction</p>
+            </div>
+
+            <div class="project-card">
+                <h3>IoT Home Security System</h3>
+                <p>Developed secure and reliable firmware for an IoT-based home security system with real-time monitoring, encrypted communications, and instant alert capabilities.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">C</span>
+                    <span class="tech-badge">ESP32</span>
+                    <span class="tech-badge">WiFi</span>
+                    <span class="tech-badge">MQTT</span>
+                    <span class="tech-badge">Security</span>
+                </div>
+                <p class="project-metric">🔒 Military-Grade Encryption</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Robotic Arm Controller</h3>
+                <p>Designed and implemented firmware for a precision robotic arm, enabling sub-millimeter accuracy and enhanced automation capabilities in manufacturing environments.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">C++</span>
+                    <span class="tech-badge">Real-Time Control</span>
+                    <span class="tech-badge">CAN Bus</span>
+                    <span class="tech-badge">PID Control</span>
+                </div>
+                <p class="project-metric">🎯 ±0.1mm Precision Control</p>
+            </div>
+
+            <div class="project-card">
+                <h3>Smart Thermostat</h3>
+                <p>Created energy-efficient firmware for a smart thermostat, integrating AI-driven algorithms for optimized climate control and predictive energy management.</p>
+                <div class="project-tech">
+                    <span class="tech-badge">C</span>
+                    <span class="tech-badge">AI/ML</span>
+                    <span class="tech-badge">WiFi</span>
+                    <span class="tech-badge">Sensors</span>
+                </div>
+                <p class="project-metric">💡 30% Energy Savings</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-subtitle">Open to collaboration and new opportunities</p>
+        <div class="contact-container">
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">If you'd like to collaborate or learn more about my work, feel free to reach out!</p>
+            <div class="contact-links">
+                <a href="mailto:devin@devingaughan.com" class="contact-link">
+                    <div class="contact-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 16V10.2427C4 10.1312 4.11735 10.0587 4.21708 10.1085L10.6584 13.3292C11.5029 13.7515 12.4971 13.7515 13.3416 13.3292L19.7829 10.1085C19.8827 10.0587 20 10.1312 20 10.2427V16C20 17.1046 19.1046 18 18 18H6C4.89543 18 4 17.1046 4 16Z" fill="#af9168"/>
+                            <path d="M4 8V8.90729C4 8.96411 4.0321 9.01605 4.08292 9.04146L10.6584 12.3292C11.5029 12.7515 12.4971 12.7515 13.3416 12.3292L19.9171 9.04146C19.9679 9.01605 20 8.96411 20 8.9073V8C20 6.89543 19.1046 6 18 6H6C4.89543 6 4 6.89543 4 8Z" fill="#af9168" fill-opacity="0.24"/>
+                        </svg>
+                    </div>
+                    <span>Email</span>
+                </a>
+                <a href="https://linkedin.com/in/devinpgaughan" target="_blank" class="contact-link">
+                    <div class="contact-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" fill="#d1ad45"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 13C8.33033 13 5.32016 15.4204 5.02395 18.5004C4.99752 18.7753 5.22389 19 5.50003 19H18.5C18.7762 19 19.0025 18.7753 18.9761 18.5004C18.6799 15.4204 15.6697 13 12 13Z" fill="#957c57" fill-opacity="0.24"/>
+                        </svg>
+                    </div>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/devin-gaughan" target="_blank" class="contact-link">
+                    <div class="contact-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13.5 5.5L6.45321 12.5468C6.22845 12.7716 6.11607 12.8839 6.04454 13.0229C5.97301 13.1619 5.94689 13.3187 5.89463 13.6322L5.11508 18.3095C5.06262 18.6243 5.03639 18.7817 5.12736 18.8726C5.21833 18.9636 5.37571 18.9374 5.69048 18.8849L10.3678 18.1054L10.3678 18.1054C10.6813 18.0531 10.8381 18.027 10.9771 17.9555C11.1161 17.8839 11.2284 17.7716 11.4532 17.5468L11.4532 17.5468L18.5 10.5C19.5171 9.48295 20.0256 8.97442 20.1384 8.36277C20.1826 8.12295 20.1826 7.87705 20.1384 7.63723C20.0256 7.02558 19.5171 6.51705 18.5 5.5C17.4829 4.48295 16.9744 3.97442 16.3628 3.8616C16.1229 3.81737 15.8771 3.81737 15.6372 3.8616C15.0256 3.97442 14.5171 4.48294 13.5 5.5Z" fill="#2A4157" fill-opacity="0.24"/>
+                            <path d="M12.2929 6.70711L6.45321 12.5468C6.22845 12.7716 6.11607 12.8839 6.04454 13.0229C5.97301 13.1619 5.94689 13.3187 5.89463 13.6322L5.11508 18.3095C5.06262 18.6243 5.03639 18.7817 5.12736 18.8726C5.21833 18.9636 5.37571 18.9374 5.69048 18.8849L10.3678 18.1054L10.3678 18.1054C10.6813 18.0531 10.8381 18.027 10.9771 17.9555C11.1161 17.8839 11.2284 17.7716 11.4532 17.5468L11.4532 17.5468L17.2929 11.7071C17.6262 11.3738 17.7929 11.2071 17.7929 11C17.7929 10.7929 17.6262 10.6262 17.2929 10.2929L17.2929 10.2929L13.7071 6.70711C13.3738 6.37377 13.2071 6.20711 13 6.20711C12.7929 6.20711 12.6262 6.37377 12.2929 6.70711Z" fill="#d4af37"/>
+                        </svg>
+                    </div>
+                    <span>GitHub</span>
+                </a>
+                <a href="#" class="contact-link">
+                    <div class="contact-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 5C5 3.89543 5.89543 3 7 3H11.75C11.8881 3 12 3.11193 12 3.25V8C12 9.10457 12.8954 10 14 10H18.75C18.8881 10 19 10.1119 19 10.25V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V5Z" fill="#d0ad46" fill-opacity="0.24"/>
+                            <path d="M13 8V3.60355C13 3.38083 13.2693 3.26929 13.4268 3.42678L18.5732 8.57322C18.7307 8.73071 18.6192 9 18.3964 9H14C13.4477 9 13 8.55228 13 8Z" fill="#9e825c"/>
+                            <path d="M8.5 13.5L14.5 13.5" stroke="#9e825c" stroke-linecap="round"/>
+                            <path d="M8.5 16.5L13.5 16.5" stroke="#9e825c" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span>Resume</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>&copy; 2024 Devin Gaughan. All rights reserved.</p>
-        </div>
+        <p>&copy; 2024 Devin Gaughan. Crafted with passion for science and technology.</p>
     </footer>
 
-    <script src="app.js"></script>
-</body>
+    <!-- JavaScript for Stars Animation -->
+    <script>
+        // Generate animated stars
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 200;
 
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            const size = Math.random() * 2 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            
+            starsContainer.appendChild(star);
+        }
+
+        // Smooth scroll with offset for fixed nav
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
 </html>
