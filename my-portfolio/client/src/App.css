@@ -79,7 +79,7 @@
             justify-content: center;
             gap: 3rem;
             list-style: none;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         nav a {
@@ -95,20 +95,7 @@
             color: var(--primary);
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
 
-        nav a:hover::after {
-            width: 100%;
-        }
 
         /* Hero Section */
         .hero {
@@ -533,3 +520,35 @@
             vertical-align: middle;
             margin-right: 0.5rem;
         }
+
+
+        /* Nav HUD Targeting Effect */
+nav a::before, nav a::after {
+    content: '[';
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    color: var(--primary);
+    transition: all 0.3s;
+}
+
+nav a::after {
+    content: ']';
+    left: auto;
+    right: -15px;
+}
+
+nav a:hover::before {
+    opacity: 1;
+    left: -10px;
+}
+
+nav a:hover::after {
+    opacity: 1;
+    right: -10px;
+}
+
+nav a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px var(--primary);
+}

@@ -143,3 +143,7 @@ app.listen(PORT, () => {
 app.use(cors({
     origin: ["https://your-vercel-project-name.vercel.app", "http://localhost:5173"]
 }));
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'Online', uptime: process.uptime() });
+});

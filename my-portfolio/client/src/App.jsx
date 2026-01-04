@@ -4,6 +4,43 @@ import SpaceBackground from './components/SpaceBackground';
 import About from './components/About';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
+import Hologram from './components/Hologram';
+import HackerText from './components/HackerText';
+import Terminal from './components/Terminal';
+
+const ServerStatus = () => {
+  const [status, setStatus] = useState('⚪ Connecting to server...');
+  const [latency, setLatency] = useState(null);
+
+  useEffect(() => {
+    const start = Date.now();
+    // Use the environment variable so it works on Vercel
+    fetch(`${import.meta.env.VITE_API_URL}/api/health`)
+      .then(res => {
+        if (res.ok) {
+            setLatency(Date.now() - start);
+            setStatus('🟢 System Online');
+        } else {
+            setStatus('🟠 System Waking Up...');
+        }
+      })
+      .catch(() => setStatus('🔴 System Offline'));
+  }, []);
+
+  return (
+    <div style={{ 
+        fontSize: '0.85rem', 
+        color: 'rgba(255,255,255,0.5)', 
+        marginTop: '1rem', 
+        fontFamily: 'monospace',
+        borderTop: '1px solid rgba(255,255,255,0.1)',
+        paddingTop: '0.5rem',
+        display: 'inline-block'
+    }}>
+      STATUS: {status} {latency && `| LATENCY: ${latency}ms`}
+    </div>
+  );
+};
 
 function App() {
   const [data, setData] = useState(null);
@@ -47,8 +84,11 @@ function App() {
 
       {/* Hero Section */}
       <section id="home" className="hero">
+        <Hologram /> {/* Holographic 3D Model Component */}
         <div className="hero-content">
-          <h1 className="glow">{data.bio.name}</h1>
+          <h1 className="glow" style={{ minHeight: '80px' }}> {/* minHeight prevents jitter */}
+                  <HackerText text={data.bio.name} />
+          </h1>
           <p className="subtitle">{data.bio.title}</p>
           <p>{data.bio.description}</p>
           <div className="cta-buttons">
@@ -83,7 +123,11 @@ function App() {
 
       <footer>
         <p>&copy; 2024 {data.bio.name}. Crafted with React.</p>
+        
+        {/* Shows server status in footer */}
+        <ServerStatus />
       </footer>
+      <Terminal /> {/* Terminal Component */}
     </div>
   );
 }
