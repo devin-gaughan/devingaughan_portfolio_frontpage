@@ -139,3 +139,7 @@ app.get('/api/portfolio', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+app.use(cors({
+    origin: ["https://your-vercel-project-name.vercel.app", "http://localhost:5173"]
+}));
