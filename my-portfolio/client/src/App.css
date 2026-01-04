@@ -523,32 +523,32 @@
 
 
         /* Nav HUD Targeting Effect */
-nav a::before, nav a::after {
-    content: '[';
-    position: absolute;
-    left: -15px;
-    opacity: 0;
-    color: var(--primary);
-    transition: all 0.3s;
-}
+        nav a::before, nav a::after {
+            content: '[';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
 
-nav a::after {
-    content: ']';
-    left: auto;
-    right: -15px;
-}
+        nav a::after {
+            content: ']';
+            left: auto;
+            right: -15px;
+        }
 
-nav a:hover::before {
-    opacity: 1;
-    left: -10px;
-}
+        nav a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
 
-nav a:hover::after {
-    opacity: 1;
-    right: -10px;
-}
+        nav a:hover::after {
+            opacity: 1;
+            right: -10px;
+        }
 
-nav a:hover {
-    color: #fff;
-    text-shadow: 0 0 8px var(--primary);
-}
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--primary);
+        }

@@ -59,6 +59,7 @@ const QuantumArtifact = () => {
 const Hologram = () => {
   return (
     <div style={{ 
+      opacity: 0.4,  
       position: 'absolute', 
       top: 0, 
       left: 0, 
