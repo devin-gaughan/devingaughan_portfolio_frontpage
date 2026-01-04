@@ -122,7 +122,7 @@ function App() {
       <Contact socialLinks={data.socialLinks} />
 
       <footer>
-        <p>&copy; 2024 {data.bio.name}. Crafted with React.</p>
+        <p>&copy; 2024 {data.bio.name}.</p>
         
         {/* Shows server status in footer */}
         <ServerStatus />
