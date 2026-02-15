@@ -1,1 +1,46 @@
-²ø1šYì
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="innerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#34d399;stop-opacity:0.6" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <circle cx="256" cy="256" r="240" fill="#0f172a" stroke="url(#crystalGrad)" stroke-width="4"/>
+  <g filter="url(#glow)" stroke="url(#crystalGrad)" stroke-width="2.5" fill="none" opacity="0.7">
+    <line x1="176" y1="156" x2="336" y2="156"/><line x1="336" y1="156" x2="336" y2="316"/>
+    <line x1="336" y1="316" x2="176" y2="316"/><line x1="176" y1="316" x2="176" y2="156"/>
+    <line x1="136" y1="196" x2="296" y2="196"/><line x1="296" y1="196" x2="296" y2="356"/>
+    <line x1="296" y1="356" x2="136" y2="356"/><line x1="136" y1="356" x2="136" y2="196"/>
+    <line x1="176" y1="156" x2="136" y2="196"/><line x1="336" y1="156" x2="296" y2="196"/>
+    <line x1="336" y1="316" x2="296" y2="356"/><line x1="176" y1="316" x2="136" y2="356"/>
+  </g>
+  <g stroke="url(#innerGrad)" stroke-width="1.5" fill="none" opacity="0.5">
+    <line x1="176" y1="156" x2="296" y2="356"/><line x1="336" y1="156" x2="136" y2="356"/>
+    <line x1="176" y1="316" x2="296" y2="196"/><line x1="336" y1="316" x2="136" y2="196"/>
+  </g>
+  <g filter="url(#glow)">
+    <circle cx="176" cy="156" r="12" fill="#7c3aed"/><circle cx="336" cy="156" r="12" fill="#8b5cf6"/>
+    <circle cx="336" cy="316" r="12" fill="#06b6d4"/><circle cx="176" cy="316" r="12" fill="#0891b2"/>
+    <circle cx="136" cy="196" r="14" fill="#7c3aed"/><circle cx="296" cy="196" r="14" fill="#6d28d9"/>
+    <circle cx="296" cy="356" r="14" fill="#10b981"/><circle cx="136" cy="356" r="14" fill="#059669"/>
+    <circle cx="236" cy="276" r="18" fill="url(#crystalGrad)" opacity="0.9"/>
+    <circle cx="236" cy="276" r="10" fill="#f0f9ff" opacity="0.5"/>
+  </g>
+  <g opacity="0.6">
+    <circle cx="256" cy="156" r="8" fill="#a78bfa"/><circle cx="256" cy="316" r="8" fill="#22d3ee"/>
+    <circle cx="176" cy="236" r="8" fill="#818cf8"/><circle cx="336" cy="236" r="8" fill="#2dd4bf"/>
+    <circle cx="216" cy="276" r="6" fill="#67e8f9"/><circle cx="316" cy="276" r="6" fill="#34d399"/>
+  </g>
+</svg>
