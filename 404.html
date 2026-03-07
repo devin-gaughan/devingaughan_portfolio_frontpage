@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Devin Gaughan</title>
+  <script>
+    // GitHub Pages SPA redirect
+    var path = window.location.pathname;
+    // Don't redirect /auraeon/ (it has its own index)
+    if (!path.startsWith('/auraeon')) {
+      window.location.replace('/' + '?p=' + path);
+    }
+  </script>
+</head>
+<body></body>
+</html>
