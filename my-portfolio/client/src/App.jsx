@@ -13,6 +13,7 @@ import Ventures from './components/Ventures';
 import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './components/Dashboard';
 import Library from './components/Library';
+import Assessment from './components/Assessment';
 
 // GitHub Pages SPA: 404.html redirects unknown paths to /?p=/original-path
 function getRoutePath() {
@@ -83,6 +84,9 @@ function App() {
         {({ onLogout }) => {
           if (route === '/library') {
             return <Library onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
+          }
+          if (route.startsWith('/assess')) {
+            return <Assessment onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
           }
           // Default: Dashboard hub
           return <Dashboard onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
