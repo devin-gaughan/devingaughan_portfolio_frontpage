@@ -82,6 +82,31 @@ export default function Assessment({ domain: initialDomain, onNavigate, onLogout
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [startTime] = useState(Date.now());
+  const [inputMode, setInputMode] = useState('text'); // text, math, code
+  const [katexReady, setKatexReady] = useState(false);
+
+  // Auto-detect input mode from domain category
+  useEffect(() => {
+    if (selectedDomain) {
+      const cat = selectedDomain.category || '';
+      if (['Physics', 'Mathematics'].includes(cat)) setInputMode('math');
+      else if (cat === 'Computer Science') setInputMode('code');
+      else setInputMode('text');
+    }
+  }, [selectedDomain]);
+
+  // Load KaTeX dynamically
+  useEffect(() => {
+    if (document.getElementById('katex-css')) { setKatexReady(!!window.katex); return; }
+    const link = document.createElement('link');
+    link.id = 'katex-css'; link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css';
+    document.head.appendChild(link);
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js';
+    script.onload = () => setKatexReady(true);
+    document.head.appendChild(script);
+  }, []);
 
   // Load domains
   useEffect(() => {
@@ -250,10 +275,92 @@ export default function Assessment({ domain: initialDomain, onNavigate, onLogout
           </div>
 
           <div style={{ margin: '16px 0' }}>
-            <textarea style={s.textarea} value={answer} onChange={e => setAnswer(e.target.value)}
-              placeholder="Type your answer here... Be thorough — show your reasoning and working."
-              onKeyDown={e => { if (e.key === 'Enter' && e.ctrlKey) submitAnswer(); }} />
-            <div style={{ fontSize: '11px', color: '#5a5045', marginTop: '6px' }}>Ctrl+Enter to submit</div>
+            {/* Input mode tabs */}
+            <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
+              {[['text', '📝 Text'], ['math', '∫ Math (LaTeX)'], ['code', '< > Code']].map(([mode, label]) => (
+                <button key={mode} onClick={() => setInputMode(mode)} style={{
+                  padding: '4px 12px', borderRadius: '14px', fontSize: '11px', cursor: 'pointer', fontFamily: 'inherit', border: 'none',
+                  background: inputMode === mode ? 'rgba(212,175,55,0.2)' : 'rgba(255,255,255,0.04)',
+                  color: inputMode === mode ? '#d4af37' : '#6b6156',
+                }}>{label}</button>
+              ))}
+            </div>
+
+            {/* Math symbol toolbar */}
+            {inputMode === 'math' && (
+              <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                {[
+                  ['α','\\alpha'],['β','\\beta'],['γ','\\gamma'],['δ','\\delta'],['ε','\\epsilon'],
+                  ['θ','\\theta'],['λ','\\lambda'],['μ','\\mu'],['π','\\pi'],['σ','\\sigma'],
+                  ['φ','\\phi'],['ψ','\\psi'],['ω','\\omega'],['ℏ','\\hbar'],['∇','\\nabla'],
+                  ['∂','\\partial'],['∫','\\int'],['∑','\\sum'],['∏','\\prod'],['√','\\sqrt{}'],
+                  ['→','\\rightarrow'],['⟨|','\\langle'],['|⟩','\\rangle'],['∞','\\infty'],
+                  ['frac','\\frac{}{}'],['vec','\\vec{}'],['hat','\\hat{}'],['dot','\\dot{}'],
+                ].map(([display, tex]) => (
+                  <button key={tex} onClick={() => {
+                    const ta = document.getElementById('answer-input');
+                    if (ta) { const pos = ta.selectionStart; const before = answer.slice(0, pos); const after = answer.slice(pos);
+                      const cursorOffset = tex.includes('{}') ? tex.indexOf('{') + 1 : tex.length;
+                      setAnswer(before + tex + after);
+                      setTimeout(() => { ta.focus(); ta.selectionStart = ta.selectionEnd = pos + cursorOffset; }, 0);
+                    } else setAnswer(answer + tex);
+                  }} style={{
+                    padding: '3px 8px', borderRadius: '6px', fontSize: '13px', cursor: 'pointer', fontFamily: "'Palatino Linotype',serif",
+                    background: 'rgba(255,255,255,0.06)', border: '0.5px solid rgba(255,255,255,0.1)', color: '#b8ad9e',
+                  }}>{display}</button>
+                ))}
+              </div>
+            )}
+
+            <textarea id="answer-input" value={answer} onChange={e => setAnswer(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && e.ctrlKey) { submitAnswer(); return; }
+                if (e.key === 'Tab' && inputMode === 'code') { e.preventDefault(); const pos = e.target.selectionStart;
+                  setAnswer(answer.slice(0, pos) + '  ' + answer.slice(pos));
+                  setTimeout(() => { e.target.selectionStart = e.target.selectionEnd = pos + 2; }, 0); }
+              }}
+              placeholder={inputMode === 'math' ? 'Use LaTeX notation: \\psi(x) = A e^{ikx}, \\frac{d^2}{dx^2}, etc. Your raw LaTeX will be sent for evaluation.'
+                : inputMode === 'code' ? 'Write your code here. Tab inserts spaces. Be thorough with comments.'
+                : 'Type your answer here... Be thorough — show your reasoning and working.'}
+              style={{
+                ...s.textarea,
+                fontFamily: inputMode === 'code' ? "'Consolas','Monaco','Courier New',monospace" : inputMode === 'math' ? "'Palatino Linotype','CMU Serif',Georgia,serif" : s.textarea.fontFamily,
+                fontSize: inputMode === 'code' ? '14px' : '15px',
+                minHeight: inputMode === 'code' ? '200px' : '150px',
+                tabSize: 2,
+              }} />
+
+            {/* LaTeX live preview */}
+            {inputMode === 'math' && answer.trim() && katexReady && (
+              <div style={{ marginTop: '8px', padding: '12px 16px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(212,175,55,0.15)', borderRadius: '8px' }}>
+                <div style={{ fontSize: '11px', color: '#8a7e6e', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Preview</div>
+                <div style={{ color: '#f0e6d3', fontSize: '16px', lineHeight: 2, overflowX: 'auto' }}
+                  dangerouslySetInnerHTML={{ __html: (() => {
+                    try {
+                      // Replace display math blocks $$...$$ and inline $...$
+                      let html = answer.replace(/\$\$([\s\S]*?)\$\$/g, (_, tex) => {
+                        try { return '<div style="text-align:center;margin:8px 0">' + window.katex.renderToString(tex.trim(), { displayMode: true, throwOnError: false }) + '</div>'; }
+                        catch { return `<span style="color:#e8685a">[Error: ${tex}]</span>`; }
+                      });
+                      html = html.replace(/\$([^$\n]+?)\$/g, (_, tex) => {
+                        try { return window.katex.renderToString(tex.trim(), { throwOnError: false }); }
+                        catch { return `<span style="color:#e8685a">[?]</span>`; }
+                      });
+                      // Also try rendering the entire thing as LaTeX if no $ delimiters
+                      if (!answer.includes('$') && (answer.includes('\\') || answer.includes('^') || answer.includes('_'))) {
+                        try { return window.katex.renderToString(answer.trim(), { displayMode: true, throwOnError: false }); }
+                        catch { return html; }
+                      }
+                      return html || '<span style="color:#5a5045">Start typing LaTeX...</span>';
+                    } catch { return '<span style="color:#e8685a">Preview error</span>'; }
+                  })() }} />
+              </div>
+            )}
+
+            <div style={{ fontSize: '11px', color: '#5a5045', marginTop: '6px', display: 'flex', justifyContent: 'space-between' }}>
+              <span>Ctrl+Enter to submit{inputMode === 'math' ? ' · Wrap inline math in $...$ or display math in $$...$$' : inputMode === 'code' ? ' · Tab indents' : ''}</span>
+              <span>{answer.length} chars</span>
+            </div>
           </div>
 
           <button onClick={submitAnswer} disabled={!answer.trim() || loading}
