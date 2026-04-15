@@ -8,54 +8,38 @@ const TIER_LABELS = { novice: 'Novice', competent: 'Competent', proficient: 'Pro
 const QUESTIONS_PER_ASSESSMENT = 10;
 const PASS_THRESHOLD = 0.7;
 
-// ── Claude API for question generation and evaluation ─────────────────
-async function callClaude(systemPrompt, userMessage) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+// ── Backend proxy for Claude-powered assessment ──────────────────────
+async function apiFetch(path, body) {
+  const res = await fetch(`${API_URL}${path}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userMessage }],
-    }),
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+    body: JSON.stringify(body),
   });
-  const data = await res.json();
-  const text = data.content?.map(b => b.text || '').join('') || '';
-  try { return JSON.parse(text.replace(/```json|```/g, '').trim()); }
-  catch { return { raw: text }; }
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || `Request failed (${res.status})`);
+  }
+  return res.json();
 }
 
 async function generateQuestion(domain, tier, questionNum, history) {
-  const historyContext = history.length > 0
-    ? `Previous questions and performance:\n${history.map((h, i) =>
-        `Q${i + 1}: "${h.question}" — Score: ${h.score}/10`).join('\n')}\n\nAdjust difficulty accordingly.`
-    : 'This is the first question.';
-
-  return callClaude(
-    `You are a rigorous but fair examiner for ${domain.name}. You assess real understanding, not memorization.
-Generate a single assessment question at the ${TIER_LABELS[tier]} proficiency level.
-Question types: conceptual explanation, problem-solving, derivation, or applied reasoning.
-For competent+ levels, require mathematical formulation or detailed technical reasoning.
-Respond ONLY with valid JSON (no markdown, no backticks):
-{"question": "the full question text", "type": "conceptual|problem|derivation|applied", "topic": "specific subtopic being tested", "difficulty": 1-10}`,
-    `Generate question ${questionNum} of ${QUESTIONS_PER_ASSESSMENT} for ${domain.name} at ${TIER_LABELS[tier]} level.\n${historyContext}`
-  );
+  return apiFetch('/api/assessments/generate-question', {
+    domain_name: domain.name,
+    domain_slug: domain.slug,
+    tier,
+    question_num: questionNum,
+    total_questions: QUESTIONS_PER_ASSESSMENT,
+    history: history.map(h => ({ question: h.question, score: h.score })),
+  });
 }
 
 async function evaluateAnswer(domain, tier, question, answer) {
-  return callClaude(
-    `You are a rigorous examiner for ${domain.name} at ${TIER_LABELS[tier]} level.
-Evaluate the student's answer with precision. Check for:
-- Conceptual accuracy (are the core ideas correct?)
-- Completeness (did they address all parts?)
-- Rigor (is the reasoning sound? are formulations correct?)
-- Depth (does it show real understanding or surface-level recall?)
-Be honest but constructive. A score of 7+ means the answer demonstrates competency at this level.
-Respond ONLY with valid JSON (no markdown, no backticks):
-{"score": 0-10, "correct": true/false, "feedback": "detailed evaluation", "strengths": ["..."], "gaps": ["..."], "correct_answer_summary": "brief correct answer for learning"}`,
-    `Question: ${question}\n\nStudent's answer: ${answer}\n\nEvaluate thoroughly.`
-  );
+  return apiFetch('/api/assessments/evaluate-answer', {
+    domain_name: domain.name,
+    tier,
+    question,
+    answer,
+  });
 }
 
 async function saveAssessment(domainSlug, tier, score, passed, questions, durationSec, notes) {
