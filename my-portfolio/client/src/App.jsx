@@ -14,6 +14,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './components/Dashboard';
 import Library from './components/Library';
 import Assessment from './components/Assessment';
+import Academics from './components/Academics';
 
 // GitHub Pages SPA: 404.html redirects unknown paths to /?p=/original-path
 function getRoutePath() {
@@ -87,6 +88,9 @@ function App() {
           }
           if (route.startsWith('/assess')) {
             return <Assessment onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
+          }
+          if (route.startsWith('/academics')) {
+            return <Academics onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
           }
           // Default: Dashboard hub
           return <Dashboard onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
