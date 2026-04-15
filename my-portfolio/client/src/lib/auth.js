@@ -3,7 +3,7 @@
  * Token stored in sessionStorage (clears on tab close for security).
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://cut-attachments-barcelona-lands.trycloudflare.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.devingaughan.com';
 
 const TOKEN_KEY = 'auraeon_token';
 const USER_KEY  = 'auraeon_user';
