@@ -20,7 +20,7 @@ const LinkPill = ({ href, icon, label }) => (
   </a>
 );
 
-export default function Library({ onLogout }) {
+export default function Library({ onLogout, onNavigate }) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -86,7 +86,7 @@ export default function Library({ onLogout }) {
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'8px' }}>
           <div style={{ fontSize:'11px', letterSpacing:'4px', textTransform:'uppercase', color:'#d4af37' }}>AURAEON LIBRARY</div>
           <div style={{ display:'flex', gap:'10px', alignItems:'center' }}>
-            <a href="/" style={{ fontSize:'12px', color:'#6b6156', textDecoration:'none' }}>← Portfolio</a>
+            <a onClick={() => onNavigate && onNavigate('/dashboard')} style={{ fontSize:'12px', color:'#6b6156', textDecoration:'none', cursor:'pointer' }}>← Dashboard</a>
             <button onClick={handleLogout} style={{ fontSize:'12px', color:'#8a7e6e', background:'none', border:'1px solid rgba(255,255,255,0.1)', borderRadius:'14px', padding:'4px 12px', cursor:'pointer', fontFamily:'inherit' }}>
               Sign Out
             </button>

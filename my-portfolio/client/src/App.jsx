@@ -11,6 +11,7 @@ import ProjectWindow from './components/ProjectWindow';
 import LatticeDemo from './components/demos/LatticeDemo';
 import Ventures from './components/Ventures';
 import PrivateRoute from './components/PrivateRoute';
+import Dashboard from './components/Dashboard';
 import Library from './components/Library';
 
 // GitHub Pages SPA: 404.html redirects unknown paths to /?p=/original-path
@@ -61,16 +62,31 @@ const portfolioData = {
 
 function App() {
   const [activeWindow, setActiveWindow] = useState(null);
-  const [route] = useState(getRoutePath());
+  const [route, setRoute] = useState(getRoutePath());
   const data = portfolioData;
 
+  const navigateTo = (path) => {
+    window.history.pushState(null, '', path);
+    setRoute(path);
+  };
+
+  const handleLogout = () => {
+    window.history.replaceState(null, '', '/');
+    setRoute('/');
+  };
+
   // ── Private routes (login required) ─────────────────
-  if (route === '/library' || route === '/login') {
+  const privateRoutes = ['/dashboard', '/login', '/library', '/assess', '/vitality', '/academics'];
+  if (privateRoutes.some(r => route.startsWith(r))) {
     return (
       <PrivateRoute>
-        {({ onLogout }) => (
-          <Library onLogout={() => { onLogout(); window.location.href = '/'; }} />
-        )}
+        {({ onLogout }) => {
+          if (route === '/library') {
+            return <Library onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
+          }
+          // Default: Dashboard hub
+          return <Dashboard onLogout={() => { onLogout(); handleLogout(); }} onNavigate={navigateTo} />;
+        }}
       </PrivateRoute>
     );
   }
