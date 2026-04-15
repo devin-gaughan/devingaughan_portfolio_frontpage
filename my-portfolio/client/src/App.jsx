@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import SpaceBackground from './components/SpaceBackground';
 import About from './components/About';
@@ -10,6 +10,19 @@ import Terminal from './components/Terminal';
 import ProjectWindow from './components/ProjectWindow';
 import LatticeDemo from './components/demos/LatticeDemo';
 import Ventures from './components/Ventures';
+import PrivateRoute from './components/PrivateRoute';
+import Library from './components/Library';
+
+// GitHub Pages SPA: 404.html redirects unknown paths to /?p=/original-path
+function getRoutePath() {
+  const params = new URLSearchParams(window.location.search);
+  const redirected = params.get('p');
+  if (redirected) {
+    window.history.replaceState(null, '', redirected);
+    return redirected;
+  }
+  return window.location.pathname;
+}
 
 const portfolioData = {
   bio: {
@@ -31,50 +44,12 @@ const portfolioData = {
     { category: "Scientific & AI", tags: ["Physics Modeling", "Materials Science", "LLM APIs", "Data Pipelines", "Simulation"] }
   ],
   projects: [
-    {
-      title: "Auraeon Crystal Lattice Simulator",
-      description: "Interactive 3D crystal structure visualizer with Miller Indices plane slicing, d-spacing calculations, and atom highlighting. Built with React, Three.js, and React Three Fiber.",
-      tech: ["React", "Three.js", "R3F", "Vite", "Scientific Computing"],
-      metric: "Live at devingaughan.com/auraeon",
-      isFeatured: true,
-      hasDemo: true
-    },
-    {
-      title: "Auraeon Storefront",
-      description: "Full e-commerce brand for outdoor adventure gear and solar-powered essentials. Custom Shopify theme, print-on-demand product design, and brand identity from scratch.",
-      tech: ["Shopify", "Liquid", "E-Commerce", "Brand Design", "Supliful"],
-      metric: "Live at auraeon.com",
-      isFeatured: true,
-      link: "https://auraeon.com"
-    },
-    {
-      title: "Portfolio Site (This Site)",
-      description: "React SPA with animated 3D hologram (Three.js), starfield background, interactive terminal emulator, and hacker-text effects. Deployed via GitHub Pages.",
-      tech: ["React", "Three.js", "Vite", "GitHub Pages"],
-      metric: "You're looking at it",
-      isFeatured: false
-    },
-    {
-      title: "Custom Shell (smallsh)",
-      description: "POSIX-compliant shell in C for Linux. Process management, signal handling (SIGINT, SIGTSTP), I/O redirection, background processes, and built-in commands.",
-      tech: ["C", "Linux", "System Calls", "Signals", "Processes"],
-      metric: "OSU Systems Programming",
-      isFeatured: false
-    },
-    {
-      title: "Printer Firmware — HP",
-      description: "Engineered firmware for a next-gen printer platform at HP. Custom bootloader, optimized initialization routines, dramatically reduced startup times.",
-      tech: ["C", "ARM Cortex-M", "USB", "Bootloader", "RTOS"],
-      metric: "15% boot time reduction",
-      isFeatured: false
-    },
-    {
-      title: "Validation Tooling — Intel",
-      description: "Automated validation and testing tools for embedded systems at Intel. Firmware integration testing, HW/SW interface verification, and defect analysis pipelines.",
-      tech: ["Python", "C", "Embedded Systems", "Test Automation"],
-      metric: "Intel Validation Engineering",
-      isFeatured: false
-    }
+    { title: "Auraeon Crystal Lattice Simulator", description: "Interactive 3D crystal structure visualizer with Miller Indices plane slicing, d-spacing calculations, and atom highlighting. Built with React, Three.js, and React Three Fiber.", tech: ["React", "Three.js", "R3F", "Vite", "Scientific Computing"], metric: "Live at devingaughan.com/auraeon", isFeatured: true, hasDemo: true },
+    { title: "Auraeon Storefront", description: "Full e-commerce brand for outdoor adventure gear and solar-powered essentials. Custom Shopify theme, print-on-demand product design, and brand identity from scratch.", tech: ["Shopify", "Liquid", "E-Commerce", "Brand Design", "Supliful"], metric: "Live at auraeon.com", isFeatured: true, link: "https://auraeon.com" },
+    { title: "Portfolio Site (This Site)", description: "React SPA with animated 3D hologram (Three.js), starfield background, interactive terminal emulator, and hacker-text effects. Deployed via GitHub Pages.", tech: ["React", "Three.js", "Vite", "GitHub Pages"], metric: "You're looking at it", isFeatured: false },
+    { title: "Custom Shell (smallsh)", description: "POSIX-compliant shell in C for Linux. Process management, signal handling (SIGINT, SIGTSTP), I/O redirection, background processes, and built-in commands.", tech: ["C", "Linux", "System Calls", "Signals", "Processes"], metric: "OSU Systems Programming", isFeatured: false },
+    { title: "Printer Firmware — HP", description: "Engineered firmware for a next-gen printer platform at HP. Custom bootloader, optimized initialization routines, dramatically reduced startup times.", tech: ["C", "ARM Cortex-M", "USB", "Bootloader", "RTOS"], metric: "15% boot time reduction", isFeatured: false },
+    { title: "Validation Tooling — Intel", description: "Automated validation and testing tools for embedded systems at Intel. Firmware integration testing, HW/SW interface verification, and defect analysis pipelines.", tech: ["Python", "C", "Embedded Systems", "Test Automation"], metric: "Intel Validation Engineering", isFeatured: false }
   ],
   socialLinks: [
     { name: "Email", url: "mailto:devin@devingaughan.com", icon: "email" },
@@ -86,8 +61,21 @@ const portfolioData = {
 
 function App() {
   const [activeWindow, setActiveWindow] = useState(null);
+  const [route] = useState(getRoutePath());
   const data = portfolioData;
 
+  // ── Private routes (login required) ─────────────────
+  if (route === '/library' || route === '/login') {
+    return (
+      <PrivateRoute>
+        {({ onLogout }) => (
+          <Library onLogout={() => { onLogout(); window.location.href = '/'; }} />
+        )}
+      </PrivateRoute>
+    );
+  }
+
+  // ── Public portfolio (default) ──────────────────────
   return (
     <div className="app">
       <SpaceBackground />
@@ -131,14 +119,10 @@ function App() {
               <p>{project.description}</p>
               <div className="project-actions">
                 {project.hasDemo && (
-                  <button className="btn btn-secondary" style={{fontSize:'0.85rem',padding:'6px 18px'}} onClick={() => setActiveWindow('lattice')}>
-                    ▶ Launch Demo
-                  </button>
+                  <button className="btn btn-secondary" style={{fontSize:'0.85rem',padding:'6px 18px'}} onClick={() => setActiveWindow('lattice')}>▶ Launch Demo</button>
                 )}
                 {project.link && (
-                  <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{fontSize:'0.85rem',padding:'6px 18px'}}>
-                    ↗ Visit Site
-                  </a>
+                  <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{fontSize:'0.85rem',padding:'6px 18px'}}>↗ Visit Site</a>
                 )}
               </div>
               <div className="project-tech">
