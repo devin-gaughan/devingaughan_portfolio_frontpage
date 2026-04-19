@@ -2,3 +2,7 @@ node_modules/
 .env
 *.log
 .DS_Store
+
+# Old dashboard prototype — under active work, don't auto-stage changes
+# while deploying the new Auraeon Dashboard at /dashboard/
+my-portfolio/
