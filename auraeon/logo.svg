@@ -1,16 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#0a0a0e"/>
-  <!-- Orion's belt: 3 stars on upper-right diagonal -->
-  <circle cx="22" cy="4.5" r="1" fill="#e5e4e2"/>
-  <circle cx="25" cy="6.5" r="1" fill="#e5e4e2"/>
-  <circle cx="28" cy="8.5" r="1" fill="#e5e4e2"/>
-  <!-- Bow legs of the A: two curved strokes meeting at apex -->
-  <path d="M 16 6 Q 9 14 5 27" stroke="#c9a961" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M 16 6 Q 23 14 27 27" stroke="#c9a961" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Arrow shaft (the A's crossbar) -->
-  <line x1="10" y1="18" x2="22" y2="18" stroke="#d4af37" stroke-width="1.4" stroke-linecap="round"/>
-  <!-- Arrowhead pointing right -->
-  <path d="M 22 18 L 19 16 L 19 20 Z" fill="#d4af37"/>
-  <!-- Fletching on the left -->
-  <path d="M 10 18 L 7.5 16 M 10 18 L 7.5 20" stroke="#d4af37" stroke-width="0.9" stroke-linecap="round"/>
+  <!-- Squished-boomerang arch: filled tapered shape, smooth curves, no sharp corners -->
+  <path d="M 4 27 C 4 -1, 28 -1, 28 27 C 28 4.33, 4 4.33, 4 27 Z" fill="#c9a961"/>
+  <!-- Orion belt: three sparkle stars, middle nudged down 1 unit for natural alignment -->
+  <path d="M 10 15.2 L 10.229 16.771 L 11.8 17 L 10.229 17.229 L 10 18.8 L 9.771 17.229 L 8.2 17 L 9.771 16.771 Z" fill="#d4af37"/>
+  <path d="M 16 16.2 L 16.229 17.771 L 17.8 18 L 16.229 18.229 L 16 19.8 L 15.771 18.229 L 14.2 18 L 15.771 17.771 Z" fill="#d4af37"/>
+  <path d="M 22 15.2 L 22.229 16.771 L 23.8 17 L 22.229 17.229 L 22 18.8 L 21.771 17.229 L 20.2 17 L 21.771 16.771 Z" fill="#d4af37"/>
 </svg>
