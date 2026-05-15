@@ -22,11 +22,8 @@ const Ventures = ({ onLaunchSim }) => {
               <span>React</span><span>Three.js</span><span>R3F</span><span>Physics</span>
             </div>
             <div className="venture-card__actions">
-              <button className="btn btn-primary" onClick={onLaunchSim} style={{fontSize:'0.9rem', padding:'10px 24px'}}>
-                ▶ Launch Simulator
-              </button>
-              <a href="/auraeon/" className="btn btn-secondary" style={{fontSize:'0.9rem', padding:'10px 24px'}}>
-                ↗ Full Version
+              <a href="/auraeon/" className="btn btn-primary" style={{fontSize:'0.9rem', padding:'10px 24px'}}>
+                ↗ Open Live App
               </a>
             </div>
           </div>
