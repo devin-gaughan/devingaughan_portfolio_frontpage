@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Ventures = ({ onLaunchSim }) => {
+const Ventures = () => {
   return (
     <section id="ventures" className="ventures-section">
       <h2 className="section-title">Ventures</h2>

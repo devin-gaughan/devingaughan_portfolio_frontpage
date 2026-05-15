@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import SpaceBackground from './components/SpaceBackground';
 import About from './components/About';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import ProjectWindow from './components/ProjectWindow';
-import LatticeDemo from './components/demos/LatticeDemo';
 import Ventures from './components/Ventures';
 import PrivateRoute from './components/PrivateRoute';
 import Dashboard from './components/Dashboard';
@@ -60,7 +58,6 @@ const portfolioData = {
 };
 
 function App() {
-  const [activeWindow, setActiveWindow] = useState(null);
   const [route, setRoute] = useState(getRoutePath());
   const data = portfolioData;
 
@@ -123,7 +120,7 @@ function App() {
       </section>
 
       <About bio={data.bio} />
-      <Ventures onLaunchSim={() => setActiveWindow('lattice')} />
+      <Ventures />
       <Skills skills={data.skills} />
 
       <section id="projects">
@@ -136,9 +133,6 @@ function App() {
               <h3>{project.title}</h3>
               <p>{project.description}</p>
               <div className="project-actions">
-                {project.hasDemo && (
-                  <button className="btn btn-secondary" style={{fontSize:'0.85rem',padding:'6px 18px'}} onClick={() => setActiveWindow('lattice')}>▶ Launch Demo</button>
-                )}
                 {project.link && (
                   <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{fontSize:'0.85rem',padding:'6px 18px'}}>↗ {project.linkLabel || 'Visit Site'}</a>
                 )}
@@ -154,12 +148,6 @@ function App() {
       
       <Contact socialLinks={data.socialLinks} />
       <footer><p>&copy; {new Date().getFullYear()} {data.bio.name}. Built with React & Three.js.</p></footer>
-
-      {activeWindow === 'lattice' && (
-        <ProjectWindow title="Auraeon Crystal Lattice v2.0" onClose={() => setActiveWindow(null)}>
-          <LatticeDemo />
-        </ProjectWindow>
-      )}
     </div>
   );
 }
