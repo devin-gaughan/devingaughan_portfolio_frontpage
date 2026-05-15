@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..600,0..100&family=Geist:wght@300..600&display=swap');
+
 * {
             margin: 0;
             padding: 0;
@@ -5,23 +7,37 @@
         }
 
         :root {
-            --primary: #c9a961;
-            --secondary: #8b7355;
-            --accent: #d4af37;
-            --dark: #0d0d0d;
-            --darker: #000000;
-            --light: #e8e8e8;
-            --gradient: linear-gradient(135deg, #c9a961 0%, #8b7355 100%);
-            --silver: #c0c0c0;
-            --platinum: #e5e4e2;
+            /* Refined "soft-cosmic" palette: warm gold + champagne on a
+               near-black base with the faintest indigo wash. */
+            --primary:        #D4B17A;   /* champagne gold — primary accent */
+            --secondary:      #9B8362;   /* dusty bronze — secondary accent */
+            --accent:         #E8C594;   /* lighter champagne for hover/active */
+            --cool-accent:    #A8B5C8;   /* pale ice-blue — used very sparingly */
+            --dark:           #15151F;   /* elevated surface, slight indigo wash */
+            --darker:         #0B0B14;   /* page base */
+            --hairline:       #1F1F2A;
+            --light:          #EAE6DC;   /* primary text — warm off-white */
+            --muted:          #9A95A3;   /* muted text — warm grey-violet */
+            --gradient:       linear-gradient(135deg, #D4B17A 0%, #9B8362 100%);
+            --silver:         #B8C5D6;   /* alias of cool-accent for legacy refs */
+            --platinum:       #EAE6DC;   /* alias of light for legacy refs */
+
+            /* Type stacks */
+            --font-display:   'Fraunces', Georgia, 'Times New Roman', serif;
+            --font-body:      'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            /* Motion */
+            --ease-soft:      cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-body);
             background: var(--darker);
             color: var(--light);
-            line-height: 1.6;
+            line-height: 1.65;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Animated Space Background */
@@ -32,7 +48,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(to bottom, #000000 0%, #0d0d0d 50%, #1a1a1a 100%);
+            background: linear-gradient(to bottom, #07070E 0%, #0B0B14 50%, #11111B 100%);
         }
 
         .stars {
@@ -44,22 +60,34 @@
             pointer-events: none;
         }
 
+        /* Star base: static glow, no pulsing shadow. Color comes from
+           the variant class (.star--cream / .star--warm / .star--cool). */
         .star {
             position: absolute;
-            background: #e5e4e2;
             border-radius: 50%;
-            animation: twinkle 3s infinite;
+            animation: twinkle 6s infinite var(--ease-soft);
+            will-change: opacity;
         }
 
+        .star--cream {
+            background: #EAE6DC;
+            box-shadow: 0 0 3px rgba(234, 230, 220, 0.35);
+        }
+
+        .star--warm {
+            background: #D4B17A;
+            box-shadow: 0 0 3px rgba(212, 177, 122, 0.45);
+        }
+
+        .star--cool {
+            background: #A8B5C8;
+            box-shadow: 0 0 3px rgba(168, 181, 200, 0.35);
+        }
+
+        /* Quiet opacity-only twinkle. ~2× range, slow, no box-shadow motion. */
         @keyframes twinkle {
-            0%, 100% { 
-                opacity: 0.2; 
-                box-shadow: 0 0 2px rgba(201, 169, 97, 0.5);
-            }
-            50% { 
-                opacity: 0.8; 
-                box-shadow: 0 0 4px rgba(212, 175, 55, 0.8);
-            }
+            0%, 100% { opacity: 0.32; }
+            50%      { opacity: 0.68; }
         }
 
         /* Navigation */
@@ -124,19 +152,19 @@
             }
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+        .hero h1,
+        .hero .display-name {
+            font-family: var(--font-display);
+            font-variation-settings: 'opsz' 144, 'SOFT' 40, 'wght' 360;
+            font-size: clamp(3.2rem, 8vw, 6rem);
+            line-height: 1.0;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 60%, var(--platinum) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
+            /* No shimmer — static gradient. The starfield is the only motion here. */
         }
 
         .hero .subtitle {
@@ -203,10 +231,14 @@
         }
 
         .section-title {
-            font-size: 3rem;
+            font-family: var(--font-display);
+            font-variation-settings: 'opsz' 96, 'SOFT' 40, 'wght' 380;
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
             text-align: center;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary), var(--platinum));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -214,9 +246,10 @@
 
         .section-subtitle {
             text-align: center;
-            color: rgba(192, 192, 192, 0.7);
+            color: var(--muted);
             margin-bottom: 4rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.02em;
         }
 
         /* About Section */

@@ -4,8 +4,6 @@ import SpaceBackground from './components/SpaceBackground';
 import About from './components/About';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import Hologram from './components/Hologram';
-import HackerText from './components/HackerText';
 import Terminal from './components/Terminal';
 import ProjectWindow from './components/ProjectWindow';
 import LatticeDemo from './components/demos/LatticeDemo';
@@ -49,7 +47,7 @@ const portfolioData = {
   projects: [
     { title: "Auraeon Crystal Lattice Simulator", description: "Interactive 3D crystal structure visualizer with Miller Indices plane slicing, d-spacing calculations, and atom highlighting. Built with React, Three.js, and React Three Fiber.", tech: ["React", "Three.js", "R3F", "Vite", "Scientific Computing"], metric: "Live at devingaughan.com/auraeon", isFeatured: true, hasDemo: true },
     { title: "Auraeon Storefront", description: "Full e-commerce brand for outdoor adventure gear and solar-powered essentials. Custom Shopify theme, print-on-demand product design, and brand identity from scratch.", tech: ["Shopify", "Liquid", "E-Commerce", "Brand Design", "Supliful"], metric: "Live at auraeon.com", isFeatured: true, link: "https://auraeon.com" },
-    { title: "Portfolio Site (This Site)", description: "React SPA with animated 3D hologram (Three.js), starfield background, interactive terminal emulator, and hacker-text effects. Deployed via GitHub Pages.", tech: ["React", "Three.js", "Vite", "GitHub Pages"], metric: "You're looking at it", isFeatured: false },
+    { title: "Portfolio Site (This Site)", description: "React single-page application with a quietly twinkling starfield background, interactive terminal emulator, and an embedded crystal-lattice simulator. Deployed via GitHub Pages.", tech: ["React", "Three.js", "Vite", "GitHub Pages"], metric: "You're looking at it", isFeatured: false },
     { title: "Custom Shell (smallsh)", description: "POSIX-compliant shell in C for Linux. Process management, signal handling (SIGINT, SIGTSTP), I/O redirection, background processes, and built-in commands.", tech: ["C", "Linux", "System Calls", "Signals", "Processes"], metric: "OSU Systems Programming", isFeatured: false },
     { title: "Printer Firmware — HP", description: "Engineered firmware for a next-gen printer platform at HP. Custom bootloader, optimized initialization routines, dramatically reduced startup times.", tech: ["C", "ARM Cortex-M", "USB", "Bootloader", "RTOS"], metric: "15% boot time reduction", isFeatured: false },
     { title: "Validation Tooling — Intel", description: "Automated validation and testing tools for embedded systems at Intel. Firmware integration testing, HW/SW interface verification, and defect analysis pipelines.", tech: ["Python", "C", "Embedded Systems", "Test Automation"], metric: "Intel Validation Engineering", isFeatured: false }
@@ -114,11 +112,8 @@ function App() {
       </nav>
 
       <section id="home" className="hero">
-        <Hologram />
         <div className="hero-content">
-          <h1 className="glow" style={{ minHeight: '80px' }}>
-            <HackerText text={data.bio.name} />
-          </h1>
+          <h1 className="display-name">{data.bio.name}</h1>
           <p className="subtitle">{data.bio.title}</p>
           <p>{data.bio.description}</p>
           <div className="cta-buttons">
