@@ -4,7 +4,7 @@ const Skills = ({ skills }) => {
   return (
     <section id="skills">
       <h2 className="section-title">Technical Expertise</h2>
-      <p className="section-subtitle">Technologies and tools I work with</p>
+      <p className="section-subtitle">From my projects, coursework and test-technician work</p>
       
       <div className="skills-container">
         {skills.map((category, index) => (

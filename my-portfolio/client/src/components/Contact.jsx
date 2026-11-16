@@ -48,7 +48,7 @@ const Contact = ({ socialLinks }) => {
       <div className="contact-container">
         <p style={{marginBottom:'2rem', color:'rgba(229,228,226,0.8)', lineHeight:'1.8'}}>
           Whether you're interested in working together, have questions about my projects, or just want to talk shop about
-          crystal structures and trail gear — I'd love to hear from you.
+          crystal structures and rhythm games — I'd love to hear from you.
         </p>
         <div className="contact-links" style={{marginBottom:'2rem'}}>
           {socialLinks && socialLinks.map((link, i) => (

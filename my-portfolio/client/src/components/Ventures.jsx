@@ -62,15 +62,15 @@ const Ventures = () => {
         <div className="venture-card venture-card--store">
           <div className="venture-card__glow"></div>
           <div className="venture-card__content">
-            <div className="venture-card__label">E-COMMERCE BRAND</div>
+            <div className="venture-card__label">ONLINE STORE</div>
             <h3 className="venture-card__title">Auraeon</h3>
             <p className="venture-card__desc">
-              Outdoor adventure gear, solar-powered essentials, and trail fuel. 
-              Built on Shopify with custom theming, print-on-demand integration, 
-              and brand identity designed from the ground up.
+              Printable study notes, planners, night-sky calendars and solar guides, 
+              sold as instant downloads, alongside a small line of apparel. 
+              Built on Shopify.
             </p>
             <div className="venture-card__tech">
-              <span>Shopify</span><span>Liquid</span><span>Supliful</span><span>Brand Design</span>
+              <span>Shopify</span><span>Digital Downloads</span><span>Print on Demand</span><span>Brand Design</span>
             </div>
             <div className="venture-card__actions">
               <a href="https://auraeon.com" target="_blank" rel="noreferrer" className="btn btn-primary" style={{fontSize:'0.9rem', padding:'10px 24px'}}>

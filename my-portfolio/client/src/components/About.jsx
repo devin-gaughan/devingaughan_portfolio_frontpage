@@ -36,7 +36,7 @@ const About = ({ bio }) => {
   return (
     <section id="about">
       <h2 className="section-title">About Me</h2>
-      <p className="section-subtitle">Engineer, scientist, explorer</p>
+      <p className="section-subtitle">Student, developer, explorer</p>
       <div className="about-content">
         <div className="about-text">
           {bio.aboutText.map((paragraph, index) => (
@@ -47,8 +47,8 @@ const About = ({ bio }) => {
           <div className="highlight-item">
             <div className="highlight-icon"><StackIcon /></div>
             <div>
-              <strong>Full-Stack & Embedded</strong>
-              <p>React to bare-metal C, across the whole stack</p>
+              <strong>Test Technician Background</strong>
+              <p>Five-plus years testing firmware and hardware at HP and Intel</p>
             </div>
           </div>
           <div className="highlight-item">
@@ -61,8 +61,8 @@ const About = ({ bio }) => {
           <div className="highlight-item">
             <div className="highlight-icon"><OutdoorIcon /></div>
             <div>
-              <strong>Outdoor & Solar Tech</strong>
-              <p>Building the Auraeon adventure brand</p>
+              <strong>Auraeon Studios</strong>
+              <p>Simulations, games and printable guides under one name</p>
             </div>
           </div>
         </div>
