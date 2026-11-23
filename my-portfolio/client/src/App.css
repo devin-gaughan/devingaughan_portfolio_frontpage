@@ -728,3 +728,4 @@
 .project-card--featured {
   border-color: rgba(201, 169, 97, 0.5);
 }
+@media (max-width:520px){nav{padding-left:3%;padding-right:3%}nav ul{gap:.85rem}nav a{font-size:.82rem;letter-spacing:.3px}}

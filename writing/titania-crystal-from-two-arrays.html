@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A tutorial on generating crystal structures in JavaScript from lattice vectors and a basis, using Titania, an open crystal lattice simulator." />
+  <title>Build a crystal from two small arrays | Devin Gaughan</title>
+  <link rel="stylesheet" href="/writing/post.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <a href="/">Devin Gaughan</a>
+    <a href="/writing/">Writing</a>
+  </nav>
+  <main>
+    <p class="kicker">Tutorial · Titania</p>
+    <h1>Build a crystal from two small arrays</h1>
+    <p class="byline">Devin Gaughan · November 24, 2026 · 6 minute read</p>
+
+    <p class="lede">Every crystal structure in <a href="/auraeon/">Titania</a>, my browser-based lattice simulator, comes from the same two pieces of data. Once you see how that works, you can generate copper, silicon, or table salt with about thirty lines of JavaScript.</p>
+
+    <p>My background is in hardware and firmware, and crystal structure sits underneath all of it: the silicon in a chip is a diamond cubic lattice, and how that lattice is cut and doped decides how the device behaves. I wanted a tool that let me turn those structures around in my hands. This post walks through the core idea so you can build the same thing.</p>
+
+    <h2>The idea: lattice plus basis</h2>
+    <p>A crystal is a pattern that repeats in three directions. To describe one completely you need two things:</p>
+    <ul>
+      <li><strong>Lattice vectors.</strong> Three vectors that say how far to step, and in which direction, to reach the next copy of the pattern.</li>
+      <li><strong>A basis.</strong> The atoms that sit inside one copy, written as fractional coordinates between 0 and 1.</li>
+    </ul>
+    <p>Here is how Titania stores face-centered cubic, the structure of copper, aluminum, and gold:</p>
+<pre><code>fcc: {
+  basis: [
+    [0,   0,   0  ],
+    [0.5, 0.5, 0  ],
+    [0.5, 0,   0.5],
+    [0,   0.5, 0.5],
+  ],
+  vectors: [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+  ],
+  defaultA: 3.61,   // lattice constant in angstroms (copper)
+}</code></pre>
+    <p>One atom at the corner and one at the center of each of three faces. Those four positions, repeated, produce the whole metal.</p>
+
+    <h2>From fractions to positions</h2>
+    <p>To place the atoms, loop over the unit cells you want, add each cell's index to the basis coordinates, and multiply through the lattice vectors. This is a condensed version of the generator in Titania:</p>
+<pre><code>function generateLattice({ basis, vectors }, repeat, a) {
+  const atoms = [];
+  for (let i = 0; i &lt; repeat; i++)
+    for (let j = 0; j &lt; repeat; j++)
+      for (let k = 0; k &lt; repeat; k++)
+        for (const b of basis) {
+          const f = [b[0] + i, b[1] + j, b[2] + k];
+          atoms.push([0, 1, 2].map(axis =&gt;
+            a * (f[0] * vectors[0][axis] +
+                 f[1] * vectors[1][axis] +
+                 f[2] * vectors[2][axis])
+          ));
+        }
+  return atoms;
+}</code></pre>
+    <p>With <code>repeat = 2</code>, the FCC entry above gives 2 × 2 × 2 cells of 4 atoms each, so 32 positions. Because the multiplication goes through the lattice vectors instead of assuming a cube, the same function handles hexagonal structures, where the vectors are not at right angles.</p>
+    <p>The full version in the repository also subtracts an offset to center the crystal on the origin, and it rounds each position into a string key so that no atom is ever placed twice.</p>
+
+    <h2>Drawing the bonds</h2>
+    <p>Bonds need no extra data. Two atoms are bonded if they are nearest neighbors, and the nearest-neighbor distance follows from geometry. In FCC it is half of a face diagonal:</p>
+<pre><code>const maxBond = a * Math.SQRT2 / 2 * 1.05;   // 5% tolerance
+
+for (let i = 0; i &lt; atoms.length; i++)
+  for (let j = i + 1; j &lt; atoms.length; j++)
+    if (distance(atoms[i], atoms[j]) &lt;= maxBond)
+      bonds.push([atoms[i], atoms[j]]);</code></pre>
+    <p>For copper that cutoff is about 2.55 Å before the tolerance, and every interior atom ends up with 12 bonds, which is the coordination number a textbook will give you. The pair loop is quadratic, which is fine at the few hundred atoms a browser scene shows.</p>
+
+    <table>
+      <caption>Table 1. Nearest-neighbor distance for the cubic structures, in units of the lattice constant <em>a</em>.</caption>
+      <tr><th>Structure</th><th>Distance</th><th>Neighbors</th></tr>
+      <tr><td>Simple cubic</td><td><em>a</em></td><td>6</td></tr>
+      <tr><td>Body-centered cubic</td><td><em>a</em>√3 / 2</td><td>8</td></tr>
+      <tr><td>Face-centered cubic</td><td><em>a</em>√2 / 2</td><td>12</td></tr>
+      <tr><td>Diamond cubic</td><td><em>a</em>√3 / 4</td><td>4</td></tr>
+    </table>
+
+    <h2>Slicing along a plane</h2>
+    <p>The same three vectors also give you lattice planes. Crystallographers name a plane by its Miller indices (hkl), and the spacing between parallel planes comes from the reciprocal lattice:</p>
+<pre><code>const vol = dot(a1, cross(a2, a3));
+const b1 = scale(cross(a2, a3), 1 / vol);
+const b2 = scale(cross(a3, a1), 1 / vol);
+const b3 = scale(cross(a1, a2), 1 / vol);
+
+const G = add(add(scale(b1, h), scale(b2, k)), scale(b3, l));
+const dSpacing = 1 / magnitude(G);
+const normal = normalize(G);</code></pre>
+    <p>For a cubic crystal this reduces to <em>d</em> = <em>a</em> / √(h² + k² + l²). Silicon has a lattice constant of about 5.43 Å, so its (111) planes sit about 3.14 Å apart. That number is what an X-ray diffraction measurement picks up, and it is why Titania can draw a powder diffraction pattern from the same data that draws the atoms.</p>
+
+    <h2>Try it</h2>
+    <ol>
+      <li>Open the <a href="/auraeon/">live app</a> and pick <strong>FCC</strong> under Structure.</li>
+      <li>Turn bonds on and raise Unit Cells to 3. Count the bonds on an atom in the middle.</li>
+      <li>Switch to <strong>Diamond Cubic</strong>. The count drops to 4, and the tetrahedral shape of silicon appears.</li>
+      <li>Under Lattice Planes, enter (111) and slide the plane position through the crystal.</li>
+    </ol>
+
+    <div class="cta">
+      <p>Titania has 11 structures, including compounds such as rock salt and perovskite. Adding another means writing one more entry of vectors and basis. The source is on GitHub: <a href="https://github.com/devin-gaughan/titania">devin-gaughan/titania</a>.</p>
+    </div>
+  </main>
+  <footer>© 2026 Devin Gaughan · <a href="/writing/">More writing</a></footer>
+</body>
+</html>

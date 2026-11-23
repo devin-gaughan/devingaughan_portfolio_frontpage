@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="How Wisp displays liquid argon neutrino detector events in a single dependency-free HTML file, using the MicroBooNE open data." />
+  <title>Wisp: a neutrino event display in one HTML file | Devin Gaughan</title>
+  <link rel="stylesheet" href="/writing/post.css" />
+</head>
+<body>
+  <nav class="topbar">
+    <a href="/">Devin Gaughan</a>
+    <a href="/writing/">Writing</a>
+  </nav>
+  <main>
+    <p class="kicker">Project notes · Wisp</p>
+    <h1>Wisp: a neutrino event display in one HTML file</h1>
+    <p class="byline">Devin Gaughan · November 24, 2026 · 6 minute read</p>
+
+    <p class="lede">Neutrinos pass through nearly everything without leaving a mark. When one finally does interact inside a detector, what it leaves behind is a thin trail of charge. <a href="https://github.com/devin-gaughan/wisp">Wisp</a> is my tool for looking at those trails in a browser.</p>
+
+    <p>The project used to be called NuView. I renamed it this week after the will-o'-the-wisp, the faint light that drifts through the dark and cannot be caught, which seemed right for a particle with the same habits.</p>
+
+    <h2>The problem</h2>
+    <p>The MicroBooNE experiment at Fermilab has published open data samples from its liquid argon time projection chamber, or LArTPC. The standard tools for viewing that kind of data are desktop applications tied to the ROOT and LArSoft software stack. They are powerful, and they take real effort to install if you are not already inside a physics collaboration.</p>
+    <p>I wanted the opposite: something a curious person could open in five minutes. Wisp is a single HTML file with no dependencies and no build step, fed by one short Python script.</p>
+
+    <figure>
+      <img src="/writing/img/wisp-2d.png" alt="Three stacked scatter plots of detector hits, colored by particle type, with a crosshair at the neutrino vertex" />
+      <figcaption>Figure 1. The three wire-plane views in truth mode, with each hit colored by the particle that made it.</figcaption>
+    </figure>
+
+    <h2>What the detector records</h2>
+    <p>A LArTPC is a large tank of liquid argon with an electric field across it. A charged particle crossing the tank knocks electrons loose, and the field drifts those electrons sideways onto three planes of wires. Each hit therefore carries two numbers: which wire collected it, and when. Plot wire number against drift time and you get a picture of the track, seen from three angles at once.</p>
+    <p>That is the main view in Wisp: three canvases, one per wire plane, with hits colored by how much charge they deposited.</p>
+
+    <h2>Getting the data into a browser</h2>
+    <p>The open samples are HDF5 files, a format browsers cannot read directly. The extraction script pulls one event out and writes it as JSON with three parts: metadata about the neutrino, the hits on each plane, and the list of true particles from the simulation.</p>
+    <p>The interesting step is matching hits to particles. A single hit can contain energy from several particles, so the script assigns each hit to whichever one deposited the most. It does that with a sort:</p>
+<pre><code>order = np.argsort(ed_en)   # ascending energy
+hit2g4 = {}
+for j in order:
+    hit2g4[int(ed_hit[j])] = int(ed_g4[j])   # later writes win</code></pre>
+    <p>Writing the deposits in ascending order means the largest one for each hit is written last and overwrites the others. Hits with no match are cosmic-ray background, and Wisp draws them dimmed.</p>
+
+    <h2>Drawing without a library</h2>
+    <p>Everything is drawn on plain 2D canvases. Two details mattered more than I expected.</p>
+    <p><strong>Clipping the color scale.</strong> A few hits in every event are far brighter than the rest. Scaling colors to the maximum makes everything else look black, so Wisp sets the top of the scale at the 97th percentile:</p>
+<pre><code>const sorted = [...d.charge].sort((a, b) =&gt; a - b);
+const qhi = sorted[Math.floor(sorted.length * 0.97)] || 1;</code></pre>
+    <p><strong>Writing the 3D view by hand.</strong> The 3D view shows straight segments for the true particle paths inside an outline of the detector. That is a small enough job that a rotation and an orthographic projection cover it, with no WebGL:</p>
+<pre><code>const proj = v =&gt; {
+  const x = v[0] - ctr[0], y = v[1] - ctr[1], z = v[2] - ctr[2];
+  const x1 = x * cy + z * sy, z1 = -x * sy + z * cy;   // rotate about y
+  const y1 = y * cx - z1 * sx;                         // tilt about x
+  return [cv.width / 2 + x1 * S + panX, cv.height / 2 - y1 * S + panY];
+};</code></pre>
+
+    <figure>
+      <img src="/writing/img/wisp-3d.png" alt="Wireframe box of the detector with colored line segments radiating from a neutrino interaction point" />
+      <figcaption>Figure 2. The 3D view of true particle trajectories inside the detector's active volume, roughly 2.6 m by 2.3 m by 10.4 m.</figcaption>
+    </figure>
+
+    <h2>Try it</h2>
+    <ol>
+      <li>Download the repository from <a href="https://github.com/devin-gaughan/wisp">github.com/devin-gaughan/wisp</a>.</li>
+      <li>Open <code>index.html</code> in a browser.</li>
+      <li>Drop one of the included <code>event_*.json</code> files onto the page, then switch between Charge and Truth, and between 2D Planes and 3D.</li>
+    </ol>
+    <p>Next on the list is a reconstruction mode, which colors hits by what the experiment's pattern-recognition software decided, so you can compare it against the truth.</p>
+
+    <div class="cta">
+      <p><strong>Data acknowledgment.</strong> I acknowledge the MicroBooNE Collaboration for making publicly available the data sets used in this work: <a href="https://doi.org/10.5281/zenodo.7261921">DOI 10.5281/zenodo.7261921</a> (CC-BY 4.0). Wisp is an independent project and is not affiliated with the collaboration.</p>
+    </div>
+  </main>
+  <footer>© 2026 Devin Gaughan · <a href="/writing/">More writing</a></footer>
+</body>
+</html>
