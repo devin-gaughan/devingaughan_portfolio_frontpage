@@ -12,7 +12,7 @@ const Ventures = () => {
           <div className="venture-card__glow"></div>
           <div className="venture-card__content">
             <div className="venture-card__label">INTERACTIVE SIMULATION</div>
-            <h3 className="venture-card__title">Auraeon Crystal Lattice</h3>
+            <h3 className="venture-card__title">Titania</h3>
             <p className="venture-card__desc">
               3D crystal structure visualizer with Miller Indices plane slicing, 
               d-spacing calculations, and real-time atom highlighting. 
